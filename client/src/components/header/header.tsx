@@ -1,60 +1,44 @@
 import "./header.css";
-import LOGO from "./../../assets/logo/Taskify.png";
-import { useEffect, useRef, useState } from "react";
+import LOGO from "./../../assets/images/logo/Taskify.png";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LanguageSwitcher } from "../language-switcher/language-switcher";
+import { useTranslation } from "react-i18next";
 
 export const Header = () => {
-    const [isAuthPopupOpen, setIsAuthPopupOpen] = useState<boolean>(false);
-    const popupRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
+    const { t } = useTranslation("header");
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                popupRef.current &&
-                !popupRef.current.contains(event.target as Node)
-            ) {
-                setIsAuthPopupOpen(false);
-            }
-        };
 
-        if (isAuthPopupOpen) {
-            document.addEventListener("mousedown", handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [isAuthPopupOpen]);
+    }, []);
 
     return (
-        <div className="main-header">
-            <div className="header-left">
-                <img src={LOGO} className="main-logo-img" alt="Logo" />
-                <ul className="header-nav-list">
-                    <li className="header-nav-item">About Us</li>
-                    <li className="header-nav-item">Resource</li>
-                    <li className="header-nav-item">Pricing</li>
-                </ul>
+        <>
+            <div className="top-header">
+                <p>Policy</p>
+                <LanguageSwitcher/>
             </div>
-            <div className="header-right">
-                <button
-                    onClick={() => setIsAuthPopupOpen(!isAuthPopupOpen)}
-                    className="header-login-button"
-                >
-                    Login
-                </button>
-
-                {isAuthPopupOpen && (
-                    <>
-                        <div className="auth-popup-blur" />
-                        <div
-                            ref={popupRef}
-                            className={`auth-popup ${isAuthPopupOpen ? "fade-in" : "fade-out"}`}
+            <div className="main-header">
+                <div className="bottom-header">
+                    <div className="header-left">
+                        <img src={LOGO} className="main-logo-img" alt="Logo" />
+                        <ul className="header-nav-list">
+                            <li className="header-nav-item">{t('about-us')}</li>
+                            <li className="header-nav-item">{ t('pricing')}</li>
+                            <li className="header-nav-item">{ t('contact')}</li>
+                        </ul>
+                    </div>
+                    <div className="header-right">
+                        <button
+                            onClick={() => navigate('/login')}
+                            className="header-login-button"
                         >
-                            <p>Hello</p>
-                        </div>
-                    </>
-                )}
+                            {t('login')}
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     );
 };

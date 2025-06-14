@@ -1,0 +1,76 @@
+.floating-input-wrapper {
+    position: relative;
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.floating-label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: white;
+    padding: 0 4px;
+    z-index: 1;
+}
+
+.floating-label.float {
+    top: -10px;
+    left: 8px;
+    font-size: 12px;
+    color: #333;
+}
+
+.floating-input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background-color: white;
+    position: relative;
+    z-index: 0;
+}
+
+.floating-input:focus {
+    border-color: #5a67d8;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+    z-index: 2;
+}
+
+.lock-icon {
+    color: var(--primary-bg, #5a67d8);
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
+.input-error {
+    border-color: red;
+}

@@ -1,0 +1,111 @@
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-wrapper {
+    display: flex;
+    width: 65%;
+    min-height: 90vh;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 0px 4px rgba(0 , 0, 0, 0.5);
+    position: relative;
+}
+
+.login-form-left,
+.login-form-right {
+    width: 50%;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-right {
+    background-color: var(--primary-bg);
+}
+
+.auth-landing-logo {
+    width: 80%;
+}
+
+.login-form-left {
+    flex-direction: column;
+}
+
+.login-title {
+    font-size: 30px;
+    color: var(--primary-bg);
+}
+
+.login-subtitle {
+
+}
+
+.login-input-form {
+    width: 80%;
+}
+
+.login-submit-button {
+    padding: 10px 20px;
+    background-color: var(--primary-bg);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border-radius: 30px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: transform 0.2s ease;
+    box-shadow: 0px 0px 4px rgba(0 , 0, 0, 0.3);
+}
+
+.login-submit-button:hover {
+    transform: translateY(-2px);
+}
+
+.login-arrow-icon {
+    background-color: #fff;
+    padding: 6px;
+    color: var(--primary-bg);
+
+    border-radius: 50%;
+}
+
+.switch-link {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.link-title {
+    color: var(--primary-bg);
+    cursor: pointer;
+    font-family: 'spartan-md';
+    margin-left: 2px;
+}
+
+.link-title:hover {
+    color: var(--second-bg);
+}
+
+.back-to-home-button {
+    cursor: pointer;
+}
+
+.back-to-home-button-title {
+    display: flex;
+}
