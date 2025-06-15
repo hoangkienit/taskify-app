@@ -16,7 +16,10 @@ export const Header = () => {
     return (
         <>
             <div className="top-header">
-                <p>Policy</p>
+                <div className="top-header-action">
+                    <p className="top-header-action-title">{ t('privacy-policy')}</p>
+                    <p className="top-header-action-title">{ t('term-of-service')}</p>
+                </div>
                 <LanguageSwitcher/>
             </div>
             <div className="main-header">
@@ -34,7 +37,7 @@ export const Header = () => {
                             onClick={() => navigate('/login')}
                             className="header-login-button"
                         >
-                            {t('login')}
+                            {t('login-button')}
                         </button>
                     </div>
                 </div>

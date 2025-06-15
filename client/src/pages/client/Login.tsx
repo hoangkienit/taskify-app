@@ -5,10 +5,12 @@ import LANDING_LOGO from './../../assets/images/logo/landing_logo.png';
 import { FloatingInput } from "../../components/inputs/floating-input";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 export const Login = () => {
-    useDocumentTitle("Login");
+    const { t } = useTranslation("auth");
+    useDocumentTitle(t('login-title'));
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<{ username?: string, password?: string }>({});
@@ -47,12 +49,12 @@ export const Login = () => {
         <div className="login-container">
             <div className="form-wrapper">
                 <div className="login-form-left">
-                    <h2 className="login-title">Welcome</h2>
-                    <p className="login-subtitle">Log in to manage your tasks and projects.</p>
+                    <h2 className="login-title">{ t('login-main-title')}</h2>
+                    <p className="login-subtitle">{ t('login-sub-title')}</p>
                     <form className="login-input-form" onSubmit={(e) => handleSubmit(e)}>
                         <FloatingInput
                             id="username"
-                            label="Username"
+                            label={ t('username')}
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -60,28 +62,28 @@ export const Login = () => {
                         />
                         <FloatingInput
                             id="password"
-                            label="Password"
+                            label={ t('password')}
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             error={errors.password}
                         />
                     <button type="submit" className="login-submit-button">
-                        <p>Login</p>
+                        <p>{ t('login-button')}</p>
                         <div className="login-arrow-icon">
                             <FaArrowRightLong />
                         </div>
                     </button>
                     </form>
                     <div className="switch-link">
-                        <p>Don't have account?
+                        <p>{ t('dont-have-account')}
                             <label
                                 onClick={() => navigate('/register')}
-                            className="link-title">Register</label></p>
+                            className="link-title">{ t('register-button')}</label></p>
                         <div
                             className="back-to-home-button"
                             onClick={() => navigate('/')}>
-                            <p className="back-to-home-button-title">Back to Home</p>
+                            <p className="back-to-home-button-title">{ t('back-to-home-button')}</p>
                         </div>
                     </div>
                 </div>

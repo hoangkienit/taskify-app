@@ -112,3 +112,17 @@
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 1; 
 }
+
+.top-header-action {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-header-action-title {
+    font-size: 14px;
+    color: rgb(78, 78, 78);
+    cursor: pointer;
+}

@@ -5,12 +5,17 @@ import LANDING_LOGO from './../../assets/images/logo/landing_logo.png';
 import { FloatingInput } from "../../components/inputs/floating-input";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 export const Register = () => {
-    useDocumentTitle("Register");
+    const { t } = useTranslation("auth");
+    useDocumentTitle(t('register-title'));
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState<{ username?: string, password?: string }>({});
 
     const navigate = useNavigate();
@@ -47,12 +52,12 @@ export const Register = () => {
         <div className="login-container">
             <div className="form-wrapper">
                 <div className="login-form-left">
-                    <h2 className="login-title">Create Your Account</h2>
-                    <p className="login-subtitle">Join Taskify and start organizing your team's work effortlessly.</p>
+                    <h2 className="login-title">{ t('register-main-title')}</h2>
+                    <p className="login-subtitle">{ t('register-sub-title')}</p>
                     <form className="login-input-form" onSubmit={(e) => handleSubmit(e)}>
                         <FloatingInput
                             id="username"
-                            label="Username"
+                            label={ t('username')}
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -60,23 +65,23 @@ export const Register = () => {
                         />
                         <FloatingInput
                             id="email"
-                            label="Email"
+                            label={ t('email')}
                             type="email"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             error={errors.username}
                         />
                         <FloatingInput
                             id="phone"
-                            label="Phone"
+                            label={ t('phone')}
                             type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                             error={errors.username}
                         />
                         <FloatingInput
                             id="password"
-                            label="Password"
+                            label={ t('password')}
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -85,28 +90,28 @@ export const Register = () => {
 
                         <FloatingInput
                             id="confirm-password"
-                            label="Confirm Password"
+                            label={ t('confirm-password')}
                             type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             error={errors.password}
                         />
                         <button type="submit" className="login-submit-button">
-                            <p>Register</p>
+                            <p>{ t('register-button')}</p>
                             <div className="login-arrow-icon">
                                 <FaArrowRightLong />
                             </div>
                         </button>
                     </form>
                     <div className="switch-link">
-                        <p>Don't have account?
+                        <p>{ t('already-have-account')}
                             <label
-                                onClick={() => navigate('/register')}
-                                className="link-title">Register</label></p>
+                                onClick={() => navigate('/login')}
+                                className="link-title">{ t('login-button')}</label></p>
                         <div
                             className="back-to-home-button"
                             onClick={() => navigate('/')}>
-                            <p className="back-to-home-button-title">Back to Home</p>
+                            <p className="back-to-home-button-title">{ t('back-to-home-button')}</p>
                         </div>
                     </div>
                 </div>
