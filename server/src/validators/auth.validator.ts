@@ -1,6 +1,23 @@
 import Joi from 'joi';
 import { TFunction } from 'i18next';
 
+export const loginSchema = (t: TFunction) => Joi.object({
+    username: Joi.string()
+        .min(6)
+        .required()
+        .messages({
+            'string.empty': t('auth-error.login.username-required'),
+            'string.min': t('auth-error.login.username-atleast'),
+        }),
+    password: Joi.string()
+        .min(6)
+        .required()
+        .messages({
+            'string.empty': t('auth-error.login.password-required'),
+            'string.min': t('auth-error.login.password-atleast'),
+        }),
+});
+
 export const registerSchema = (t: TFunction) => Joi.object({
     username: Joi.string()
         .min(6)

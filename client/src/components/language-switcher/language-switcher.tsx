@@ -18,6 +18,7 @@ export const LanguageSwitcher: React.FC = () => {
 
     const handleSelect = (lng: string) => {
         i18n.changeLanguage(lng);
+        localStorage.setItem("lng", lng);
         setOpen(false);
     };
 

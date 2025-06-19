@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Loading } from "../../components/loader/loader";
 import { IoHome } from "react-icons/io5";
+import ToastNotification, { showTopToast } from "../../components/toast/toast";
+import {LoginUser} from './../../api/auth.api';
 
 
 export const Login = () => {
@@ -44,20 +46,35 @@ export const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!validateInputs()) {
+        if (!validateInputs()) return;
 
+
+        try {
+            setLoading(true);
+
+            const loginResp = await LoginUser(username, password);
+        } catch (error) {
+            if (error instanceof Error) {
+                showTopToast(error.message, "error", 5000);
+            } else {
+                showTopToast("Unexpected error occurred", "error", 5000);
+            }
+        }
+        finally {
+            setLoading(false);
         }
     }
 
     return (
         <div className="login-container">
+            <ToastNotification />
             <div className="form-wrapper">
                 <div className="login-form-left">
-                <div className="switch-link-top">
+                    <div className="switch-link-top">
                         <button
                             className="back-to-home-button"
                             onClick={() => navigate('/')}>
-                            <IoHome className="back-to-home-button-icon"/>
+                            <IoHome className="back-to-home-button-icon" />
                             {/* <p className="back-to-home-button-title">{t('back-to-home-button')}</p> */}
                         </button>
                     </div>

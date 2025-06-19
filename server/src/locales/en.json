@@ -1,0 +1,26 @@
+{
+    "auth-error": {
+        "register": {
+            "username-required": "Please enter a username",
+            "username-atleast": "Username must be at least 6 characters long",
+            "email-required": "Please enter an email",
+            "email-existed": "Email already existed",
+            "phone-existed": "Phone already existed",
+            "email-invalid": "Invalid email address",
+            "phone-required": "Please enter a phone number",
+            "phone-invalid": "Invalid phone number",
+            "password-required": "Please enter a password",
+            "password-atleast": "Password must be at least 6 characters long",
+            "confirm-password-required": "Please confirm your password",
+            "password-match": "Password confirmation does not match"
+        },
+        "login": {
+            "username-required": "Please enter a username",
+            "username-atleast": "Username must be at least 6 characters long",
+            "password-required": "Please enter a password",
+            "password-atleast": "Password must be at least 6 characters long",
+            "username-not-existed": "Username does not exist",
+            "password-wrong": "Wrong password"
+        }
+    }
+}

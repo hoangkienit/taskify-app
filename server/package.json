@@ -12,17 +12,27 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
     "i18next": "^25.2.1",
+    "i18next-express-middleware": "^2.0.0",
+    "i18next-http-middleware": "^3.7.4",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
-    "nanoid": "^5.1.5"
+    "nanoid": "^5.1.5",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/hpp": "^0.2.6",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^24.0.1",
