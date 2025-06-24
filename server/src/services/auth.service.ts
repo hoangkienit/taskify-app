@@ -1,6 +1,6 @@
 import { TFunction } from "i18next";
 import User from "../models/user.model";
-import { NotFoundError } from "../core/error.response";
+import { BadRequestError, NotFoundError } from "../core/error.response";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { LoginRequest, LoginResponse, RegisterRequest } from "../types/auth.types";
@@ -10,7 +10,7 @@ class AuthService {
         const exists = await User.findOne({ [field]: value }).lean();
         if (exists) {
             console.log(`User with ${field} ${value} already exists`);
-            throw new NotFoundError(t(errorMsg));
+            throw new BadRequestError(t(errorMsg));
         }
     }
 

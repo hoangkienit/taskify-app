@@ -27,9 +27,9 @@ export const Header = () => {
                     <div className="header-left">
                         <img src={LOGO} className="main-logo-img" alt="Logo" />
                         <ul className="header-nav-list">
-                            <li className="header-nav-item">{t('about-us')}</li>
-                            <li className="header-nav-item">{ t('pricing')}</li>
-                            <li className="header-nav-item">{ t('contact')}</li>
+                            <li className="header-nav-item underline-animate">{t('about-us')}</li>
+                            <li className="header-nav-item underline-animate">{ t('pricing')}</li>
+                            <li className="header-nav-item underline-animate">{ t('contact')}</li>
                         </ul>
                     </div>
                     <div className="header-right">

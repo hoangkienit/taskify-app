@@ -1,6 +1,7 @@
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import type { TypeOptions } from "react-toastify";
+import './toast.css'
 
 type ToastType = Exclude<TypeOptions, "default">;
 

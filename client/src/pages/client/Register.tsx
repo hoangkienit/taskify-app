@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Loading } from "../../components/loader/loader";
 import { IoHome } from "react-icons/io5";
-import { showTopToast } from "../../components/toast/toast";
+import ToastNotification, { showTopToast } from "../../components/toast/toast";
 import { RegisterUser } from "../../api/auth.api";
 import { handleApiError } from "../../utils/handleApiError";
 
@@ -87,9 +87,8 @@ export const Register = () => {
                 showTopToast(registerResponse.message ?? "Registration successful!", "success", 5000);
                 navigate('/login?reg=true');
             }
-        } catch (error) {
-            console.error("Registration error:", error);
-            handleApiError(error, "Unexpected error occurred during registration");
+        } catch (err) {
+            handleApiError(err, "Unexpected error occurred during registration");
         }
         finally {
             setLoading(false);
@@ -99,6 +98,7 @@ export const Register = () => {
     return (
         <div className="login-container">
             <div className="form-wrapper">
+                <ToastNotification />
                 <div className="login-form-left">
                 <div className="switch-link-top">
                         <button

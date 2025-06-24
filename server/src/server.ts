@@ -57,9 +57,6 @@ app.use(requestLogger); // Log requests
 //===========SECURITY MIDDLEWARE===========
 app.use(helmet()); // Set security HTTP headers
 app.use(mongoSanitize()); // Sanitize data against NoSQL injection
-// app.use(hpp({
-//     whitelist: ['filter', 'sort']
-// }));
 
 
 
@@ -72,6 +69,16 @@ app.use('/api/v1/auth', AuthRoute);
 
 // Error handling
 app.use(errorHandler);
+
+//===========GLOBAL HANDLERS FOR UNEXPECTED ERRORS ===========
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err);
+    process.exit(1);
+});
+
+process.on("unhandledRejection", (err) => {
+    console.error("Unhandled Rejection:", err);
+});
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

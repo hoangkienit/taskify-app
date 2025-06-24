@@ -126,3 +126,24 @@
     color: rgb(78, 78, 78);
     cursor: pointer;
 }
+
+.underline-animate {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.underline-animate::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: var(--primary-bg);
+    transition: width 0.3s ease;
+}
+
+.underline-animate:hover::after {
+    width: 100%;
+}

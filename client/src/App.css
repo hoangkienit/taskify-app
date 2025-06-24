@@ -5,8 +5,32 @@
   margin: 0;
 
   --primary-bg: #5c70f3;
+  --primary-bg-hover: #6f81f5;
+  /* lighter hover */
+
+  /* Secondary Colors */
   --second-bg: #00177a;
+  --second-bg-hover: #00125f;
+  /* darker hover */
+
   --third-bg: #90a9e5;
+  --third-bg-hover: #a2b9f0;
+  /* lighter hover */
+
+  /* Buttons */
+  --second-button-bg: #495bd1;
+  --second-button-hover: #3a4ab6;
+
+  /* Text Colors */
+  --text-light: #ffffff;
+  --text-dark: #1a1a1a;
+
+  /* Border Radius */
+  --border-radius: 8px;
+
+  /* Transition */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-normal: 0.3s ease;
 }
 
 @font-face {
@@ -23,6 +47,3 @@
   font-family: 'spartan-md';
   src: url('./assets/fonts/LeagueSpartan-Medium.ttf') format('truetype');
 }
-
-
-
