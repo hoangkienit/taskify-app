@@ -1,23 +1,43 @@
 import { Request, Response } from 'express';
-import { NotFoundError } from '../core/error.response';
+import { CREATED, OK } from '../core/success.response';
+import AuthService from '../services/auth.service';
 
 class AuthController {
     static async Login(req: Request, res: Response): Promise<void> {
         const t = req.t;
-        // console.log(`[${req.method}] ${req.originalUrl} from ${req.headers.origin}`);
-        res.status(200).json("Hello");
+
+        const response = await AuthService.Login(req.body, t);     
+        res.cookie("accessToken", response.accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000 // 1 hour
+        });
+
+        res.cookie("refreshToken", response.refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000 // 1 hour
+        });
+
+        new OK({
+            message: t("auth-success.login"),
+            data: {
+                user: response.user
+            }
+        }).send(res);
     }
 
     static async Register(req: Request, res: Response): Promise<void> {
-        const {
-            username,
-            email,
-            phone,
-            password
-        } = req.body;
+        const t = req.t;
 
+        await AuthService.Register(req.body, t);
         
-        res.status(200).json("Hello world");
+        new CREATED({
+            message: t("auth-success.register"),
+            data: {}
+        }).send(res);
     }
 }
 

@@ -14,6 +14,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
+import requestLogger from './middlewares/request.middleware';
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -51,6 +52,7 @@ i18next.use(middleware.LanguageDetector).init({
 });
 
 app.use(middleware.handle(i18next));
+app.use(requestLogger); // Log requests
 
 //===========SECURITY MIDDLEWARE===========
 app.use(helmet()); // Set security HTTP headers

@@ -6,20 +6,33 @@ import { StarterLayout } from './layouts/StarterLayout';
 import { Login } from './pages/client/Login';
 import { Register } from './pages/client/Register';
 import './configs/i18n.ts';
+import { AuthProvider } from './context/AuthContext.tsx';
+import { UserProvider } from './context/UserContext.tsx';
+import { ManagementDashboard } from './pages/client/ManagementDashboard.tsx';
+import AuthLayout from './layouts/AuthLayout.tsx';
 
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        {/** Public routes */}
-        <Route element={<StarterLayout/>}>
-          <Route path='/' element={<Dashboard/>} />
-        </Route>
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register/>}/>
-      </Routes>
-    </Router>
+    <UserProvider>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/** Public routes */}
+            <Route element={<StarterLayout />}>
+              <Route path='/' element={<Dashboard />} />
+            </Route>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+
+            {/** Protected routes */}
+            <Route element={<AuthLayout />}>
+              <Route path='/manage-dashboard' element={<ManagementDashboard/>} />
+            </Route>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </UserProvider>
   )
 }
 

@@ -3,6 +3,7 @@
         "register": {
             "username-required": "Vui lòng nhập tên người dùng",
             "username-atleast": "Tên người dùng phải có ít nhất 6 ký tự",
+            "username-existed": "Tên đăng nhập đã tồn tại",
             "email-required": "Vui lòng nhập email",
             "email-invalid": "Email không hợp lệ",
             "phone-required": "Vui lòng nhập số điện thoại",
@@ -10,7 +11,7 @@
             "password-required": "Vui lòng nhập mật khẩu",
             "password-atleast": "Mật khẩu phải có ít nhất 6 ký tự",
             "confirm-password-required": "Vui lòng xác nhận mật khẩu",
-            "password-match": "Mật khẩu xác nhận không khớp"
+            "password-not-match": "Mật khẩu xác nhận không khớp"
         },
         "login": {
             "username-required": "Vui lòng nhập tên người dùng",
@@ -20,5 +21,9 @@
             "username-not-existed": "Tên người dùng không tồn tại",
             "password-wrong": "Mật khẩu không đúng"
         }
+    },
+    "auth-success": {
+        "register": "Đăng ký thành công, vui lòng đăng nhập",
+        "login": "Đăng nhập thành công"
     }
 }

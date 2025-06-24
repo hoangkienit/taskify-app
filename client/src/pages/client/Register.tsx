@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Loading } from "../../components/loader/loader";
 import { IoHome } from "react-icons/io5";
+import { showTopToast } from "../../components/toast/toast";
+import { RegisterUser } from "../../api/auth.api";
+import { handleApiError } from "../../utils/handleApiError";
 
 export const Register = () => {
     const { t } = useTranslation("auth");
@@ -70,7 +73,27 @@ export const Register = () => {
         e.preventDefault();
         if (!validateInputs()) return;
 
-        // API call
+        try {
+            setLoading(true);
+            const registerResponse = await RegisterUser({
+                username,
+                email,
+                phone,
+                password,
+                confirmPassword
+            });
+
+            if (registerResponse.success) {
+                showTopToast(registerResponse.message ?? "Registration successful!", "success", 5000);
+                navigate('/login?reg=true');
+            }
+        } catch (error) {
+            console.error("Registration error:", error);
+            handleApiError(error, "Unexpected error occurred during registration");
+        }
+        finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -135,7 +158,7 @@ export const Register = () => {
                                 color="#fff"
                             /> :
                                 <>
-                                    <p>{t('login-button')}</p>
+                                    <p>{t('register-button')}</p>
                                     <div className="login-arrow-icon">
                                         <FaArrowRightLong />
                                     </div>

@@ -9,7 +9,11 @@ import { useTranslation } from "react-i18next";
 import { Loading } from "../../components/loader/loader";
 import { IoHome } from "react-icons/io5";
 import ToastNotification, { showTopToast } from "../../components/toast/toast";
-import {LoginUser} from './../../api/auth.api';
+import { LoginUser } from './../../api/auth.api';
+import { useAuth } from "../../context/AuthContext";
+import { handleApiError } from "../../utils/handleApiError";
+import { useSearchParams } from "react-router-dom";
+
 
 
 export const Login = () => {
@@ -22,6 +26,16 @@ export const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const { login } = useAuth();
+
+    const reg = searchParams.get("reg");
+
+    useEffect(() => {
+        if (reg) {
+            showTopToast(t('register-success'), "success", 5000);
+        }
+    }, [reg, t]);
 
     const validateInputs = () => {
         const newErrors: typeof errors = {};
@@ -48,17 +62,17 @@ export const Login = () => {
         e.preventDefault();
         if (!validateInputs()) return;
 
-
         try {
             setLoading(true);
 
-            const loginResp = await LoginUser(username, password);
-        } catch (error) {
-            if (error instanceof Error) {
-                showTopToast(error.message, "error", 5000);
-            } else {
-                showTopToast("Unexpected error occurred", "error", 5000);
+            const loginResponse = await LoginUser({ username, password });
+
+            if (loginResponse.success) {
+                login(loginResponse.data?.user ?? null);
+                navigate('/manage-dashboard');
             }
+        } catch (err) {
+            handleApiError(err, "Unexpected error occurred during login");
         }
         finally {
             setLoading(false);

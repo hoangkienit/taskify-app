@@ -2,12 +2,11 @@ import mongoose from "mongoose";
 import { customAlphabet } from 'nanoid';
 
 const nanoidCustom = customAlphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZ', 8);
-const userId = nanoidCustom();
 
 const userSchema = new mongoose.Schema({
     userId: {
         type: String,
-        default: userId
+        default: () => nanoidCustom()
     },
     username: {
         type: String,
@@ -37,11 +36,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: false
     },
+    isVerified: {
+        type: String,
+        default: false
+    },
     role: {
+        type: String,
         enum: ['employee', 'manager', 'admin', 'not_assign'],
         default: 'not_assign',
     },
     plan: {
+        type: String,
         enum: ['basic', 'premium', 'enterprise'],
         default: 'basic'
     }

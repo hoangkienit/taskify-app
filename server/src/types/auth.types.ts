@@ -14,10 +14,6 @@ export interface RegisterRequest {
 
 export interface LoginResponse {
     accessToken: string;
-    user: {
-        id: string;
-        username: string;
-        email: string;
-        phone: string;
-    };
+    refreshToken: string;
+    user: object;
 }
