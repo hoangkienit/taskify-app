@@ -13,11 +13,34 @@ import errorHandler from './middlewares/error.middleware';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
-import hpp from 'hpp';
 import cors from 'cors';
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT as string;
+
+connectDb();
+app.use(express.json());
+
+//===========CORS===========
+app.use(cors({
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://127.0.0.1:5173',
+        ];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+}));
+
+//===========MIDDLEWARES===========
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 i18next.use(middleware.LanguageDetector).init({
     fallbackLng: 'en',
@@ -29,37 +52,14 @@ i18next.use(middleware.LanguageDetector).init({
 
 app.use(middleware.handle(i18next));
 
-connectDb();
-
-app.use(express.json());
-
 //===========SECURITY MIDDLEWARE===========
 app.use(helmet()); // Set security HTTP headers
 app.use(mongoSanitize()); // Sanitize data against NoSQL injection
-app.use(hpp()); // Protect against HTTP Parameter Pollution
+// app.use(hpp({
+//     whitelist: ['filter', 'sort']
+// }));
 
-//===========MIDDLEWARES===========
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-];
 
-//===========CORS===========
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin as string)) {
-        res.setHeader('Access-Control-Allow-Origin', origin as string);
-    }
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Accept-Language');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
-        return;
-    }
-    next();
-});
 
 // Routes
 app.get('/', (req, res) => {

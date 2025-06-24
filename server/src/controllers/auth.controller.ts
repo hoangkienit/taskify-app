@@ -4,6 +4,7 @@ import { NotFoundError } from '../core/error.response';
 class AuthController {
     static async Login(req: Request, res: Response): Promise<void> {
         const t = req.t;
+        // console.log(`[${req.method}] ${req.originalUrl} from ${req.headers.origin}`);
         res.status(200).json("Hello");
     }
 
