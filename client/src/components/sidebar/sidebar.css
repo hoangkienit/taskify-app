@@ -1,0 +1,160 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 5%;
+    height: 100vh;
+    background-color: #fff;
+    color: #000;
+    transition: width 0.3s;
+    overflow: visible;
+    z-index: 1000;
+    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu-icon {
+    font-size: 25px;
+}
+
+
+
+.sidebar.collapsed {
+    width: 15%;
+}
+
+.sidebar .toggle-btn {
+    background: none;
+    border: none;
+    color: var(--primary-bg);
+    font-size: 24px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sidebar .menu {
+    list-style: none;
+    padding: 0;
+
+}
+
+.sidebar .menu li {
+    padding: 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar .menu li a {
+    color: var(--primary-bg);
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 7px;
+    gap: 10px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.sidebar .menu li a:hover {
+    color: #fff;
+    background: linear-gradient(to right, #3f51d5, #5c70f3, #aab6ff);
+}
+
+.menu-item-collapsed {
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+}
+
+.main {
+    margin-left: 220px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+.main.full {
+    margin-left: 60px;
+}
+
+.brand-name {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-bg);
+}
+
+.brand-logo-section {
+    height: 10%;
+    border-bottom: 1px solid var(--primary-bg);
+    width: 100%;
+    display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.sidebar-brand-logo {
+    width: 70px;
+    height: 100%;
+}
+
+.tooltip-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Tooltip bubble */
+.tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+    background-color: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 999;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    animation: none;
+}
+
+/* Tooltip arrow pointing left (below bubble) */
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent;
+}
+
+/* Show tooltip on hover */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50%) translateX(5%);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .main {
+        margin-left: 60px;
+    } }

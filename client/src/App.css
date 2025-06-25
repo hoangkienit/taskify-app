@@ -47,3 +47,11 @@
   font-family: 'spartan-md';
   src: url('./assets/fonts/LeagueSpartan-Medium.ttf') format('truetype');
 }
+
+.main-content {
+  padding-left: 5%;
+  padding-top: 5%;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  height: 1000px;
+}

@@ -10,6 +10,7 @@ import { AuthProvider } from './context/AuthContext.tsx';
 import { UserProvider } from './context/UserContext.tsx';
 import { ManagementDashboard } from './pages/client/ManagementDashboard.tsx';
 import AuthLayout from './layouts/AuthLayout.tsx';
+import { MainLayout } from './layouts/MainLayout.tsx';
 
 function App() {
 
@@ -27,7 +28,9 @@ function App() {
 
             {/** Protected routes */}
             <Route element={<AuthLayout />}>
-              <Route path='/manage-dashboard' element={<ManagementDashboard/>} />
+              <Route element={<MainLayout />}>
+                <Route path='/manage-dashboard' element={<ManagementDashboard/>} />
+              </Route>
             </Route>
           </Routes>
         </Router>
