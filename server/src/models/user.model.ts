@@ -1,13 +1,6 @@
 import mongoose from "mongoose";
-import { customAlphabet } from 'nanoid';
-
-const nanoidCustom = customAlphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZ', 8);
 
 const userSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        default: () => nanoidCustom()
-    },
     username: {
         type: String,
         required: true
@@ -30,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImg: {
         type: String,
-        default: "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-1024.png"
+        default: "https://iampesmobile.com/uploads/user-avatar-taskify.png"
     },
     isBanned: {
         type: String,

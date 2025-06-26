@@ -3,13 +3,12 @@ import User from "../models/user.model";
 import { BadRequestError, NotFoundError } from "../core/error.response";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
-import { LoginRequest, LoginResponse, RegisterRequest } from "../types/auth.types";
+import { LoginRequest, LoginResponse, RegisterRequest } from "../interfaces/auth.interface";
 
 class AuthService {
     private static async checkUserExists(field: string, value: string, t: TFunction, errorMsg: string) {
         const exists = await User.findOne({ [field]: value }).lean();
         if (exists) {
-            console.log(`User with ${field} ${value} already exists`);
             throw new BadRequestError(t(errorMsg));
         }
     }
@@ -32,13 +31,13 @@ class AuthService {
         const accessToken = jwt.sign(
             { userId: user._id, username: user.username, role: user.role },
             process.env.JWT_ACCESS_SECRET as string,
-            { expiresIn: '1h' }
+            { expiresIn: '30s' }
         );
 
         const refreshToken = jwt.sign(
             { userId: user._id, username: user.username, role: user.role },
             process.env.JWT_REFRESH_SECRET as string,
-            { expiresIn: '7d' }
+            { expiresIn: '1m' }
         );
 
         // Remove sensitive fields

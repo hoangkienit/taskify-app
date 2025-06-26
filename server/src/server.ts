@@ -2,7 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// Import routes
+import UserRoute from './routes/user.route';
 import AuthRoute from './routes/auth.route';
+
+
 import connectDb from './config/mongo';
 import middleware from 'i18next-http-middleware';
 import translationEn from './locales/en.json';
@@ -66,6 +70,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', AuthRoute);
+app.use('/api/v1/user', UserRoute);
 
 // Error handling
 app.use(errorHandler);
