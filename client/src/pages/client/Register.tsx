@@ -158,7 +158,7 @@ export const Register = () => {
                                 color="#fff"
                             /> :
                                 <>
-                                    <p>{t('register-button')}</p>
+                                    <p className="login-submit-button-text">{t('register-button')}</p>
                                     <div className="login-arrow-icon">
                                         <FaArrowRightLong />
                                     </div>

@@ -11,6 +11,7 @@ import { UserProvider } from './context/UserContext.tsx';
 import { ManagementDashboard } from './pages/client/ManagementDashboard.tsx';
 import AuthLayout from './layouts/AuthLayout.tsx';
 import { MainLayout } from './layouts/MainLayout.tsx';
+import Logout from './pages/client/Logout.tsx';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
               <Route element={<MainLayout />}>
                 <Route path='/manage-dashboard' element={<ManagementDashboard/>} />
               </Route>
+              <Route path='/logout' element={<Logout />} />
             </Route>
           </Routes>
         </Router>

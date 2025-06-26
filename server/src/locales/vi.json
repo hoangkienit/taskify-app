@@ -26,6 +26,7 @@
     },
     "auth-success": {
         "register": "Đăng ký thành công, vui lòng đăng nhập",
-        "login": "Đăng nhập thành công"
+        "login": "Đăng nhập thành công",
+        "logout": "Đăng xuất thành công"
     }
 }

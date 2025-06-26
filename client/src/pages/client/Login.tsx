@@ -121,7 +121,7 @@ export const Login = () => {
                                 color="#fff"
                             /> :
                                 <>
-                                    <p>{t('login-button')}</p>
+                                    <p className="login-submit-button-text">{t('login-button')}</p>
                                     <div className="login-arrow-icon">
                                         <FaArrowRightLong />
                                     </div>

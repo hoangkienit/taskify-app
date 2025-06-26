@@ -6,14 +6,14 @@ import React, {
 } from "react";
 
 import type { ReactNode, Dispatch, SetStateAction } from "react";
-import type { User } from "../types/user.type";
+import type { IUser } from "../interfaces/user.interface";
 import { useUser } from "./UserContext";
 
 interface AuthContextType {
-    user: User | null;
+    user: IUser | null;
     isAuthenticated: boolean;
-    setUser: Dispatch<SetStateAction<User | null>>;
-    login: (user: User) => void;
+    setUser: Dispatch<SetStateAction<IUser | null>>;
+    login: (user: IUser) => void;
     logout: () => void;
 }
 
@@ -35,7 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [user]);
 
-    const login = (userData: User) => {
+    const login = (userData: IUser) => {
         setUser(userData);
     };
 

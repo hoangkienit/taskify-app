@@ -1,31 +1,11 @@
 import api from "../configs/axios";
-
-interface LoginResponse {
-    success: boolean,
-    message?: string,
-    status?: number,
-    data: Record<string, any>
-}
-
-interface RegisterResponse {
-    success: boolean,
-    message?: string,
-    status?: number,
-    data: object
-}
-
-interface IRegisterRequest {
-    username: string,
-    email: string,
-    phone: string,
-    password: string,
-    confirmPassword: string
-}
-
-interface ILoginRequest {
-    username: string,   
-    password: string
-}
+import type {
+    ILoginRequest,
+    IRegisterRequest,
+    LoginResponse,
+    RegisterResponse,
+    LogoutResponse
+} from "../interfaces/auth.interface";
 
 export const LoginUser = async ({ username, password}: ILoginRequest): Promise<LoginResponse> => {
     try {
@@ -58,6 +38,18 @@ export const RegisterUser = async ({
             password,
             confirmPassword
         }, {
+            withCredentials: true
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const LogoutUser = async (): Promise<LogoutResponse> => {
+    try {
+        const response = await api.get(`/auth/logout`, {
             withCredentials: true
         });
 

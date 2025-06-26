@@ -1,3 +1,7 @@
 {
-    "title": "Quản lý | Taskify - Quản lý công việc chuyên nghiệp"
+    "title": "Quản lý | Taskify - Quản lý công việc chuyên nghiệp",
+    "logout-title": "Đăng xuất",
+    "logout-message": "Bạn có chắc chắn muốn đăng xuất không?",
+    "confirm-button": "Xác nhận",
+    "cancel-button": "Hủy"
 }

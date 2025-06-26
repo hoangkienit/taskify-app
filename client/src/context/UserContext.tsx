@@ -6,12 +6,12 @@ import React, {
 } from "react";
 
 import type { ReactNode, Dispatch, SetStateAction } from "react";
-import type { User } from "../types/user.type";
+import type { IUser } from "../interfaces/user.interface";
 
 
 interface UserContextType {
-    user: User | null;
-    setUser: Dispatch<SetStateAction<User | null>>;
+    user: IUser | null;
+    setUser: Dispatch<SetStateAction<IUser | null>>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -21,7 +21,7 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(() => {
+    const [user, setUser] = useState<IUser | null>(() => {
         try {
             const userData = localStorage.getItem("user");
             return userData ? JSON.parse(userData) : null;

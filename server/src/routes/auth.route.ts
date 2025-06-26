@@ -10,4 +10,6 @@ router.post('/login', validate(loginSchema), asyncHandler(AuthController.Login))
 
 router.post('/register', validate(registerSchema), asyncHandler(AuthController.Register));
 
+router.get('/logout', asyncHandler(AuthController.Logout));
+
 export default router;

@@ -1,3 +1,7 @@
 {
-    "title": "Management | Taskify - Professional task management"
+    "title": "Management | Taskify - Professional task management",
+    "logout-title": "Logout",
+    "logout-message": "Are you sure you want to logout?",
+    "confirm-button": "Confirm",
+    "cancel-button": "Cancel"
 }

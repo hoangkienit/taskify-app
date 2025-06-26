@@ -33,7 +33,11 @@ export const Sidebar = () => {
                             <a href={item.path} className={`tooltip-container ${isOpen && 'menu-item-collapsed'}`}>
                                 {item.icon}
                                 {!isOpen && <span className="menu-text">{item.name}</span>}
-                                <span className="tooltip-text">{item.name}</span>
+                                <div className="tooltip-text">
+                                    <p className="tooltip-text-title">
+                                        {item.name}
+                                    </p>
+                                </div>
                             </a>
                         </li>
                     ))}
