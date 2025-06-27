@@ -28,5 +28,18 @@
         "register": "Đăng ký thành công, vui lòng đăng nhập",
         "login": "Đăng nhập thành công",
         "logout": "Đăng xuất thành công"
+    },
+    "user-error": {
+        "update-profile": {
+            "email-required": "Email không được để trống",
+            "email-invalid": "Định dạng email không hợp lệ",
+            "phone-required": "Số điện thoại không được để trống",
+            "phone-invalid": "Định dạng số điện thoại không hợp lệ",
+            "avatar-required": "Ảnh đại diện không được để trống",
+            "avatar-invalid": "Định dạng ảnh đại diện không hợp lệ"
+        }
+    },
+    "user-success": {
+        "update-profile": "Cập nhật hồ sơ thành công"
     }
 }

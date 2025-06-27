@@ -28,5 +28,18 @@
         "register": "Registration successful, please log in",
         "login": "Login successful",
         "logout": "Logout successful"
+    },
+    "user-error": {
+        "update-profile": {
+            "email-required": "Email cannot be empty",
+            "email-invalid": "Invalid email format",
+            "phone-required": "Phone cannot be empty",
+            "phone-invalid": "Invalid phone number format",
+            "avatar-required": "Avatar cannot be empty",
+            "avatar-invalid": "Invalid avatar format"
+        }
+    },
+    "user-success": {
+        "update-profile": "Profile updated successfully"
     }
 }

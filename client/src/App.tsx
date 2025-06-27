@@ -13,6 +13,7 @@ import AuthLayout from './layouts/AuthLayout.tsx';
 import { MainLayout } from './layouts/MainLayout.tsx';
 import Logout from './pages/client/Logout.tsx';
 
+
 function App() {
 
   return (
@@ -30,7 +31,8 @@ function App() {
             {/** Protected routes */}
             <Route element={<AuthLayout />}>
               <Route element={<MainLayout />}>
-                <Route path='/manage-dashboard' element={<ManagementDashboard/>} />
+                <Route path='/manage-dashboard' element={<ManagementDashboard />} />
+
               </Route>
               <Route path='/logout' element={<Logout />} />
             </Route>

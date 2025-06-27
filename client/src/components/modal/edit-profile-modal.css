@@ -1,0 +1,132 @@
+.edit-profile-modal__overlay {
+    position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        animation: edit-profile-modal__fadeIn 0.3s ease-in-out;
+}
+
+.edit-profile-container {
+    max-width: 30%;
+    width: 100%;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.edit-profile-title {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+}
+
+.edit-profile-avatar-section {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-profile-main-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    border: 2px solid #5c70f3;
+}
+
+.edit-profile-avatar-options {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.edit-profile-avatar-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+}
+
+.edit-profile-avatar-thumb:hover {
+    border-color: #aaa;
+}
+
+.edit-profile-avatar-thumb.selected {
+    border-color: #5c70f3;
+}
+
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edit-profile-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-profile-form-group label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+}
+
+.edit-profile-form-group .edit-profile-input {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.edit-profile-form-group .edit-profile-input:disabled {
+    background-color: #f8f8f8;
+    color: #888;
+}
+
+.edit-profile-submit-button {
+    padding: 12px;
+    background-color: #5c70f3;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.edit-profile-submit-button:hover {
+    background-color: #495ad1;
+}
+
+.edit-profile-loading {
+    width: 20%;
+    background-color: var(--primary-bg);
+    border-radius: 8px;
+}
+
+@keyframes edit-profile-modal__fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}

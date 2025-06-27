@@ -7,8 +7,8 @@ declare module 'express' {
         t: TFunction;
         user?: JwtPayload & {
             userId: string;
-            username?: string;
-            role?: string;
+            username: string;
+            role: string;
         }
     }
 }

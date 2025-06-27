@@ -8,13 +8,16 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import ConfirmModal from '../modal/confirm-modal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import EditProfileModal from '../modal/edit-profile-modal';
+import ToastNotification, { showTopToast } from '../toast/toast';
 
 export const MainHeader: React.FC = () => {
     const { user } = useUser();
-    const { t } = useTranslation("management");
+    const { t } = useTranslation("header");
     const [showActions, setShowActions] = useState<boolean>(false);
     const actionRef = useRef<HTMLDivElement>(null);
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
+    const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
 
@@ -36,7 +39,12 @@ export const MainHeader: React.FC = () => {
     }
 
     const menuItems = [
-        { name: 'Profile', icon: <FaUserCircle />, action: () => console.log('Profile clicked') },
+        {
+            name: 'Profile', icon: <FaUserCircle />, action: () => {
+                setShowActions(false);
+                setIsEditProfileModalOpen(true);
+            }
+        },
         { name: 'Settings', icon: <IoMdSettings />, action: () => console.log('Settings clicked') },
         {
             name: 'Logout', icon: <RiLogoutBoxRFill />, action: () => {
@@ -81,6 +89,18 @@ export const MainHeader: React.FC = () => {
                 onConfirm={handleLogout}
                 cancelButtonText={t('cancel-button')}
                 confirmButtonText={t('confirm-button')}
+            />
+
+            {/** Edit profile modal */}
+            <EditProfileModal
+                title={t('edit-profile-title')}
+                isOpen={isEditProfileModalOpen}
+                onCancel={() => {
+                    setIsEditProfileModalOpen(false)
+                }}
+                cancelButtonText={t('cancel-button')}
+                confirmButtonText={t('save-button')}
+                t={t}
             />
         </div>
     );

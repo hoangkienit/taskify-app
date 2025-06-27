@@ -10,3 +10,9 @@ export interface IUser {
     isVerified?: boolean;
     plan?: string;
 }
+
+export interface IUpdateUserProfile {
+    email: string;
+    phone: string;
+    avatar?: string;
+}

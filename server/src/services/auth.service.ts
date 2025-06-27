@@ -31,13 +31,13 @@ class AuthService {
         const accessToken = jwt.sign(
             { userId: user._id, username: user.username, role: user.role },
             process.env.JWT_ACCESS_SECRET as string,
-            { expiresIn: '30s' }
+            { expiresIn: '30m' }
         );
 
         const refreshToken = jwt.sign(
             { userId: user._id, username: user.username, role: user.role },
             process.env.JWT_REFRESH_SECRET as string,
-            { expiresIn: '1m' }
+            { expiresIn: '7d' }
         );
 
         // Remove sensitive fields
