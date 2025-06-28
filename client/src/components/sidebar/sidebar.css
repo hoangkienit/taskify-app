@@ -12,6 +12,14 @@
     box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
 }
 
+.sidebar-header-section {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    border-bottom: 1px solid var(--primary-bg);
+    height: 10%;
+}
+
 .sidebar-menu-icon {
     font-size: 25px;
 }
@@ -28,12 +36,20 @@
     color: var(--primary-bg);
     font-size: 24px;
     padding: 10px;
-    width: 100%;
+    width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: left;
     cursor: pointer;
+}
+
+.toggle-button-collapsed {
+    width: 100% !important;
+}
+
+
+.collapsed-avatar {
+    display: none;
 }
 
 .sidebar .menu {
@@ -95,12 +111,11 @@
 }
 
 .brand-logo-section {
-    height: 10%;
-    border-bottom: 1px solid var(--primary-bg);
+    height: 100%;
     width: 100%;
     display: flex;
-        align-items: center;
-        justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidebar-brand-logo {
@@ -163,13 +178,15 @@
         width: 15%;
     }
 
-        .sidebar-brand-logo {
-            height: 90%;   }
+    .sidebar-brand-logo {
+        height: 90%;
+    }
 
-        .sidebar.collapsed {
-            width: 40%;   }
+    .sidebar.collapsed {
+        width: 40%;
+    }
 
     .main {
         margin-left: 60px;
-    } 
+    }
 }

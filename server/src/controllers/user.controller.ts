@@ -31,6 +31,28 @@ class UserController {
             }
         }).send(res);
     }
+
+    static async changePassword(req: Request, res: Response): Promise<void> {
+        const { currentPassword, newPassword, confirmPassword } = req.body;
+        if (!req.user || !req.user.userId) {
+            throw new UnauthorizedError("User not authenticated");
+        }
+
+        if (newPassword !== confirmPassword) {
+            throw new UnauthorizedError(req.t("user-error.change-password.password-mismatch"));
+        }
+
+        const userId = req.user.userId;
+
+        const user = await UserService.changePassword(userId, currentPassword, newPassword, req.t);
+
+        new OK({
+            message: req.t("user-success.change-password"),
+            data: {
+                user: user
+            }
+        }).send(res);
+    }
 }
 
 export default UserController;

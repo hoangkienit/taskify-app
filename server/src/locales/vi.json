@@ -37,9 +37,19 @@
             "phone-invalid": "Định dạng số điện thoại không hợp lệ",
             "avatar-required": "Ảnh đại diện không được để trống",
             "avatar-invalid": "Định dạng ảnh đại diện không hợp lệ"
+        },
+        "change-password": {
+            "current-password-required": "Mật khẩu hiện tại không được để trống",
+            "new-password-required": "Mật khẩu mới không được để trống",
+            "confirm-new-password-required": "Xác nhận mật khẩu mới không được để trống",
+            "new-password-invalid": "Mật khẩu mới không hợp lệ",
+            "new-password-length": "Mật khẩu mới phải có ít nhất 6 ký tự",
+            "password-mismatch": "Mật khẩu mới và xác nhận mật khẩu không khớp",
+            "current-password-not-match": "Mật khẩu hiện tại không đúng"
         }
     },
     "user-success": {
-        "update-profile": "Cập nhật hồ sơ thành công"
+        "update-profile": "Cập nhật hồ sơ thành công",
+        "change-password": "Đổi mật khẩu thành công"
     }
 }

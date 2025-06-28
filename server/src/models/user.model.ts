@@ -43,6 +43,8 @@ const userSchema = new mongoose.Schema({
         enum: ['basic', 'premium', 'enterprise'],
         default: 'basic'
     }
+}, {
+    timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);

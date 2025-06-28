@@ -16,3 +16,20 @@ export interface IUpdateUserProfile {
     phone: string;
     avatar?: string;
 }
+
+export interface IChangePassword {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+}
+
+export interface IFriend {
+    userId: string;
+    username: string;
+    profileImg: string;
+    createdAt: Date
+}
+
+export interface IFriendListProps {
+    friend: IFriend
+}

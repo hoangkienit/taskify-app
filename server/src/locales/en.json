@@ -37,9 +37,19 @@
             "phone-invalid": "Invalid phone number format",
             "avatar-required": "Avatar cannot be empty",
             "avatar-invalid": "Invalid avatar format"
+        },
+        "change-password": {
+            "current-password-required": "Current password cannot be empty",
+            "new-password-required": "New password cannot be empty",
+            "confirm-new-password-required": "Confirm new password cannot be empty",
+            "new-password-invalid": "New password is invalid",
+            "new-password-length": "New password must be at least 6 characters long",
+            "password-mismatch": "New password and confirm password do not match",
+            "current-password-not-match": "Current password is incorrect"
         }
     },
     "user-success": {
-        "update-profile": "Profile updated successfully"
+        "update-profile": "Profile updated successfully",
+        "change-password": "Password changed successfully"
     }
 }

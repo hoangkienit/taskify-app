@@ -12,6 +12,7 @@ import { ManagementDashboard } from './pages/client/ManagementDashboard.tsx';
 import AuthLayout from './layouts/AuthLayout.tsx';
 import { MainLayout } from './layouts/MainLayout.tsx';
 import Logout from './pages/client/Logout.tsx';
+import Friends from './pages/client/Friends.tsx';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
             <Route element={<AuthLayout />}>
               <Route element={<MainLayout />}>
                 <Route path='/manage-dashboard' element={<ManagementDashboard />} />
-
+                <Route path='/friends' element={<Friends/>} />
               </Route>
               <Route path='/logout' element={<Logout />} />
             </Route>

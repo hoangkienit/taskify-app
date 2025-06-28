@@ -6,7 +6,7 @@ import ToastNotification, { showTopToast } from '../toast/toast';
 import { isValidEmail, isValidVietnamesePhone } from '../../utils/validation';
 import { handleApiError } from '../../utils/handleApiError';
 import { Loading } from '../loader/loader';
-import { updateUserProfile } from '../../api/user.api';
+import { UpdateUserProfile } from '../../api/user.api';
 
 const avatarOptions = [
     'https://iampesmobile.com/uploads/user-avatar-taskify.jpg',
@@ -45,7 +45,7 @@ const EditProfileModal = ({
 
         try {
             setLoading(true);
-            const response = await updateUserProfile({
+            const response = await UpdateUserProfile({
                 email: email.trim(),
                 phone: phone.trim(),
                 avatar: selectedAvatar

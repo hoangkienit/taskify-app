@@ -22,6 +22,18 @@
     "edit-profile-error-invalid-email": "Invalid email format",
     "edit-profile-error-empty-phone": "Phone cannot be empty",
     "edit-profile-error-invalid-phone": "Invalid phone number format",
-    "edit-profile-success": "Profile updated successfully",
-    "edit-profile-error": "Failed to update profile"
+    "profile-title": "Your Profile",
+    "password-change-title": "Change Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-new-password": "Confirm New Password",
+    "change-password-button": "Change Password",
+    "change-password-success": "Password changed successfully",
+    "change-password-error": "An error occurred while changing the password",
+    "change-password-error-empty-current": "Current password cannot be empty",
+    "change-password-error-empty-new": "New password cannot be empty",
+    "change-password-error-empty-confirm": "Confirm password cannot be empty",
+    "change-password-error-mismatch": "New password and confirm password do not match",
+    "change-password-error-invalid-new": "New password is invalid",
+    "change-password-error-length": "New password must be at least 6 characters long"
 }

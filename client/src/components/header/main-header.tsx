@@ -9,15 +9,20 @@ import ConfirmModal from '../modal/confirm-modal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import EditProfileModal from '../modal/edit-profile-modal';
-import ToastNotification, { showTopToast } from '../toast/toast';
+import { RiLockPasswordFill } from "react-icons/ri";
+import ChangePasswordModal from '../modal/change-password-modal';
 
 export const MainHeader: React.FC = () => {
     const { user } = useUser();
     const { t } = useTranslation("header");
     const [showActions, setShowActions] = useState<boolean>(false);
     const actionRef = useRef<HTMLDivElement>(null);
+
+    // State for modals
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
     const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState<boolean>(false);
+    const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState<boolean>(false);
+
     const navigate = useNavigate();
 
 
@@ -40,14 +45,18 @@ export const MainHeader: React.FC = () => {
 
     const menuItems = [
         {
-            name: 'Profile', icon: <FaUserCircle />, action: () => {
+            name: t('profile-title'), icon: <FaUserCircle />, action: () => {
                 setShowActions(false);
                 setIsEditProfileModalOpen(true);
             }
         },
-        { name: 'Settings', icon: <IoMdSettings />, action: () => console.log('Settings clicked') },
         {
-            name: 'Logout', icon: <RiLogoutBoxRFill />, action: () => {
+            name: t('password-change-title'), icon: <RiLockPasswordFill />, action: () => {
+                setIsChangePasswordModalOpen(true);
+                setShowActions(false);
+        } },
+        {
+            name: t('logout-title'), icon: <RiLogoutBoxRFill />, action: () => {
                 setIsLogoutModalOpen(true);
                 setShowActions(false);
         } }
@@ -100,6 +109,13 @@ export const MainHeader: React.FC = () => {
                 }}
                 cancelButtonText={t('cancel-button')}
                 confirmButtonText={t('save-button')}
+                t={t}
+            />
+
+            {/** Change password modal */}
+            <ChangePasswordModal
+                isOpen={isChangePasswordModalOpen}
+                onClose={() => setIsChangePasswordModalOpen(false)}
                 t={t}
             />
         </div>

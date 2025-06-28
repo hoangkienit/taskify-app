@@ -30,12 +30,22 @@ export const Login = () => {
     const { login } = useAuth();
 
     const reg = searchParams.get("reg");
+    const reason = searchParams.get("reason");
 
     useEffect(() => {
         if (reg) {
             showTopToast(t('register-success'), "success", 5000);
         }
-    }, [reg, t]);
+
+        switch (reason) {
+            case "change_password":
+                showTopToast(t('logout-change-password-reason'), "success", 5000);
+                break;
+        
+            default:
+                break;
+        }
+    }, [reg, t, reason]);
 
     const validateInputs = () => {
         const newErrors: typeof errors = {};

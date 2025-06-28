@@ -22,6 +22,19 @@
     "edit-profile-error-invalid-email": "Định dạng email không hợp lệ",
     "edit-profile-error-empty-phone": "Số điện thoại không được để trống",
     "edit-profile-error-invalid-phone": "Định dạng số điện thoại không hợp lệ",
-    "edit-profile-success": "Cập nhật hồ sơ thành công",
-    "edit-profile-error": "Cập nhật hồ sơ thất bại"
+    "profile-title": "Hồ sơ của bạn",
+    "password-change-title": "Thay đổi mật khẩu",
+    "current-password": "Mật khẩu hiện tại",
+    "new-password": "Mật khẩu mới",
+    "confirm-new-password": "Xác nhận mật khẩu mới",
+    "change-password-button": "Thay đổi mật khẩu",
+    "change-password-success": "Mật khẩu đã được thay đổi thành công",
+    "change-password-error": "Đã xảy ra lỗi khi thay đổi mật khẩu",
+    "change-password-error-empty-current": "Mật khẩu hiện tại không được để trống",
+    "change-password-error-empty-new": "Mật khẩu mới không được để trống",
+    "change-password-error-empty-confirm": "Xác nhận mật khẩu không được để trống",
+    "change-password-error-mismatch": "Mật khẩu mới và xác nhận mật khẩu không khớp",
+    "change-password-error-invalid-new": "Mật khẩu mới không hợp lệ",
+    "change-password-error-length": "Mật khẩu mới phải có ít nhất 6 ký tự"
+
 }
