@@ -17,7 +17,7 @@
 
 .friends-page__top-bar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -29,6 +29,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     transition: border-color 0.2s ease;
+    width: 100%;
 }
 
 .friends-page__search-input:focus,
@@ -51,6 +52,7 @@
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.2s ease;
+    width: 100%;
 }
 
 .friends-page__add-btn:hover {
@@ -88,4 +90,18 @@
     text-align: center;
     color: #888;
     padding: 1rem 0;
+}
+
+.friend-search-input-section {
+    position: relative;
+    width: 50%;
+    z-index: 1;
+}
+
+.search-page-search-icon {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    position: absolute;
+    z-index: 1;
 }

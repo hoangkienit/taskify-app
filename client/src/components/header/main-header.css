@@ -28,6 +28,7 @@
     align-items: center;
     gap: 20px;
     padding: 10px 0px;
+    position: relative;
 }
 
 .main-manage-header-notification-icon {
@@ -53,7 +54,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
     min-width: 160px;
-    z-index: 2000;
+    z-index: 9999;
 }
 
 .user-action-item {

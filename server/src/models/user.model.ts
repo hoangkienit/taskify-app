@@ -26,11 +26,11 @@ const userSchema = new mongoose.Schema({
         default: "https://iampesmobile.com/uploads/user-avatar-taskify.png"
     },
     isBanned: {
-        type: String,
+        type: Boolean,
         default: false
     },
     isVerified: {
-        type: String,
+        type: Boolean,
         default: false
     },
     role: {

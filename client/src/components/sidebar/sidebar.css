@@ -83,6 +83,11 @@
     background: linear-gradient(to right, #3f51d5, #5c70f3, #aab6ff);
 }
 
+.sidebar-menu-selected {
+    color: #fff !important;
+    background: linear-gradient(to right, #3f51d5, #5c70f3, #aab6ff);
+}
+
 .menu-item-collapsed {
     display: flex;
     align-items: center;

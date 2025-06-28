@@ -9,6 +9,12 @@
     height: 100%;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.friend-card-container:hover {
+    transform: translateY(-2px);
 }
 
 .friend-card-avatar-section {
@@ -29,4 +35,43 @@
     border-radius: 50%;
     padding: 3px;
     border: 1px solid #fff;
+}
+
+.friend-card-username {
+    font-family: 'spartan-bold';
+}
+
+.friend-card-createdAt {
+    font-size: 13px;
+    color: #ececec;
+}
+
+.friend-card-action-section {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.friend-card-action-icon {
+    font-size: 35px;
+    background-color: var(--primary-bg-hover);
+    padding: 3px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.friend-card-action-icon:hover {
+    background-color: #fff;
+    color: var(--primary-bg-hover);
+}
+
+.unfriend-icon {
+    
+}
+
+.message-icon {
+    
 }

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import '../styles/friends.css';
 import { FriendCard } from '../../components/friend/friend-card';
 import type { IFriend } from '../../interfaces/user.interface';
+import { FaSearch } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 const sampleFriends: IFriend[] = [
     {
@@ -35,6 +38,8 @@ const Friends: React.FC = () => {
     const [friends, setFriends] = useState<IFriend[]>(sampleFriends);
     const [search, setSearch] = useState('');
     const [newFriendName, setNewFriendName] = useState('');
+    const { t } = useTranslation("friend");
+    useDocumentTitle(t('friend-title'))
 
     const handleAddFriend = () => {
         if (newFriendName.trim() === '') return;
@@ -54,37 +59,34 @@ const Friends: React.FC = () => {
 
     return (
         <div className="friends-page">
-            <h1 className="friends-page__title">My Friends</h1>
+            <h1 className="friends-page__title">{ t('friend-list-title')}</h1>
 
             <div className="friends-page__top-bar">
-                <input
+                <div className="friend-search-input-section">
+                    <input
                     className="friends-page__search-input"
                     type="text"
-                    placeholder="Search friends..."
+                    placeholder={t('search-friend-placeholder')}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                />
+                    />
+                    <FaSearch className='search-page-search-icon'/>
+                </div>
 
                 <div className="friends-page__add-wrapper">
-                    <input
-                        type="text"
-                        className="friends-page__add-input"
-                        placeholder="Add new friend"
-                        value={newFriendName}
-                        onChange={(e) => setNewFriendName(e.target.value)}
-                    />
                     <button
                         onClick={handleAddFriend}
                         className="friends-page__add-btn"
                     >
-                        Add
+                        {t('add-friend-button')}
                     </button>
                 </div>
             </div>
 
             <div className="friends-page__list">
-                {filteredFriends.map((friend) => (
+                {filteredFriends.map((friend, index) => (
                     <FriendCard
+                        key={index}
                         friend={friend}
                     />
                 ))}
