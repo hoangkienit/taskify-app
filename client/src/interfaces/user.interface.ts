@@ -1,4 +1,5 @@
 export interface IUser {
+    _id: string;
     userId: string;
     username: string;
     email: string;
@@ -23,13 +24,3 @@ export interface IChangePassword {
     confirmPassword: string;
 }
 
-export interface IFriend {
-    userId: string;
-    username: string;
-    profileImg: string;
-    createdAt: Date
-}
-
-export interface IFriendListProps {
-    friend: IFriend
-}

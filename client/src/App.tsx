@@ -13,6 +13,7 @@ import AuthLayout from './layouts/AuthLayout.tsx';
 import { MainLayout } from './layouts/MainLayout.tsx';
 import Logout from './pages/client/Logout.tsx';
 import Friends from './pages/client/Friends.tsx';
+import ToastNotification from './components/toast/toast.tsx';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           </Routes>
         </Router>
       </AuthProvider>
+      <ToastNotification/>
     </UserProvider>
   )
 }

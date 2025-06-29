@@ -5,6 +5,7 @@ dotenv.config();
 // Import routes
 import UserRoute from './routes/user.route';
 import AuthRoute from './routes/auth.route';
+import FriendRoute from './routes/friend.route';
 
 
 import connectDb from './config/mongo';
@@ -16,12 +17,16 @@ import errorHandler from './middlewares/error.middleware';
 
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import http from "http";
 import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
 import requestLogger from './middlewares/request.middleware';
+import { initializeSocket } from './config/socket';
 const cookieParser = require("cookie-parser");
 
 const app = express();
+const server = http.createServer(app);
+initializeSocket(server);
 const port = process.env.PORT as string;
 
 connectDb();
@@ -31,8 +36,8 @@ app.use(express.json());
 app.use(cors({
     origin: function (origin, callback) {
         const allowedOrigins = [
-            'http://localhost:5173',
-            'http://127.0.0.1:5173',
+            'http://localhost:5000',
+            'http://127.0.0.1:5000',
         ];
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -71,6 +76,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', AuthRoute);
 app.use('/api/v1/user', UserRoute);
+app.use('/api/v1/friend', FriendRoute);
 
 // Error handling
 app.use(errorHandler);
@@ -85,6 +91,6 @@ process.on("unhandledRejection", (err) => {
     console.error("Unhandled Rejection:", err);
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });

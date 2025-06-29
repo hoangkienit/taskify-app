@@ -11,6 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import EditProfileModal from '../modal/edit-profile-modal';
 import { RiLockPasswordFill } from "react-icons/ri";
 import ChangePasswordModal from '../modal/change-password-modal';
+import FriendRequestToast from '../toast/friend-request-toast';
+import ToastNotification, { showFriendRequestToast, showTopToast } from '../toast/toast';
+import socket from '../../configs/socket';
 
 export const MainHeader: React.FC = () => {
     const { user } = useUser();
@@ -39,6 +42,18 @@ export const MainHeader: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (socket) {
+            socket.on("test", () => {
+                showTopToast("Tester man", "success", 5000);
+            });
+
+            return () => {
+                socket.off("test", () => { });
+            }
+        }
+    }, [socket]);
+
     const handleLogout = () => {
         navigate('/logout', { replace: true });
     }
@@ -62,11 +77,27 @@ export const MainHeader: React.FC = () => {
         } }
     ];
 
+    const onAccept = () => {
+
+    }
+
+    const onReject = () => {
+        
+    }
+
 
     return (
         <div className="main-manage-header">
             <div className="user-detail-section" ref={actionRef}>
-                <IoMdNotifications className="main-manage-header-notification-icon" />
+                <div className="main-header-notification-section">
+                    <IoMdNotifications
+                        className="main-manage-header-notification-icon"
+                        onClick={() => {}}
+                    />
+                    <div className='notification-count-container'>
+                        <p className="count">1</p>
+                    </div>
+                </div>
                 <img
                     src={user?.profileImg || '/default-avatar.png'}
                     alt="User Avatar"

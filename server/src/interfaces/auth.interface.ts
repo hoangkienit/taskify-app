@@ -17,3 +17,9 @@ export interface LoginResponse {
     refreshToken: string;
     user: object;
 }
+
+export interface JwtPayload {
+    userId: string;
+    username: string;
+    role: string;
+}

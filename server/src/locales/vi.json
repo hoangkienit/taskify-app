@@ -51,5 +51,12 @@
     "user-success": {
         "update-profile": "Cập nhật hồ sơ thành công",
         "change-password": "Đổi mật khẩu thành công"
+    },
+    "friend-error": {
+        "not-found": "Không tìm thấy người dùng",
+        "already-friend": "Bạn với người này đã là bạn bè"
+    },
+    "friend-success": {
+        "add-success": "Đã gửi lời mời kết bạn"
     }
 }

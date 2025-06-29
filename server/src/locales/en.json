@@ -51,5 +51,12 @@
     "user-success": {
         "update-profile": "Profile updated successfully",
         "change-password": "Password changed successfully"
+    },
+    "friend-error": {
+        "not-found": "User not found",
+        "already-friend": "You and this person are already friends"
+    },
+    "friend-success": {
+        "add-success": "Friend request sent"
     }
 }

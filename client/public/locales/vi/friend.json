@@ -3,5 +3,8 @@
     "search-friend-placeholder": "Tìm kiếm bạn...",
     "friend-list-title": "Danh sách bạn bè",
     "friend-title": "Kết bạn | Taskify - Quản lý công việc chuyên nghiệp",
-    "add-friend-button": "Thêm bạn mới"
+    "add-friend-button": "Thêm bạn mới",
+    "add-friend-modal-title": "Tìm và thêm bạn",
+    "add-friend-input-placeholder": "Nhập tên hoặc ID",
+    "send-request-button": "Gửi lời mời"
 }

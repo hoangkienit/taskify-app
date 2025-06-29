@@ -1,0 +1,93 @@
+.find-friend-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.find-friend-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: find-friend-fade-in-up 0.3s ease;
+}
+
+.find-friend-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.2s ease;
+}
+
+.find-friend-close:hover {
+    color: #000;
+}
+
+.find-friend-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.find-friend-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.find-friend-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.2s ease;
+}
+
+.find-friend-input:focus {
+    border-color: #5c70f3;
+    outline: none;
+}
+
+.find-friend-button {
+    padding: 0.75rem 1rem;
+    background: #5c70f3;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.find-friend-button:hover {
+    background: #4a5edc;
+}
+
+@keyframes find-friend-fade-in-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

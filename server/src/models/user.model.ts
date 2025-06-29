@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImg: {
         type: String,
-        default: "https://iampesmobile.com/uploads/user-avatar-taskify.png"
+        default: "https://iampesmobile.com/uploads/user-avatar-taskify.jpg"
     },
     isBanned: {
         type: Boolean,

@@ -3,6 +3,9 @@
     "search-friend-placeholder": "Search friends...",
     "friend-list-title": "My Friends",
     "friend-title": "Friends | Taskify - Professional Task Management",
-    "add-friend-button": "Add new friend"
-
+    "add-friend-button": "Add new friend",
+    "add-friend-modal-title": "Find and Add Friend",
+    "add-friend-input-placeholder": "Enter name or ID",
+    "send-request-button": "Send Request"
+    
 }

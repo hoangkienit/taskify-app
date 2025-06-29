@@ -53,6 +53,7 @@ const EditProfileModal = ({
 
             setUser(response.data.user);
             showTopToast(t('edit-profile-success'), 'success', 3000);
+            onCancel();
         } catch (error) {
             handleApiError(error, "Edit Profile Error");
         }
@@ -88,7 +89,6 @@ const EditProfileModal = ({
 
     return (
         <div className='edit-profile-modal__overlay'>
-            <ToastNotification/>
             <div className="edit-profile-container">
                 <h2 className="edit-profile-title">{title}</h2>
 
@@ -108,6 +108,10 @@ const EditProfileModal = ({
                 </div>
 
                 <form className="edit-profile-form">
+                <div className="edit-profile-form-group">
+                        <label>ID</label>
+                        <input type="text" value={user?._id || "hoangkiendev"} disabled className='edit-profile-input' />
+                    </div>
                     <div className="edit-profile-form-group">
                         <label>{t('username')}</label>
                         <input type="text" value={user?.username || "hoangkiendev"} disabled className='edit-profile-input' />

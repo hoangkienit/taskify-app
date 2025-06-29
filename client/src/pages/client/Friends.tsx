@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/friends.css';
 import { FriendCard } from '../../components/friend/friend-card';
-import type { IFriend } from '../../interfaces/user.interface';
+import type { IFriend } from '../../interfaces/friend.interface';
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import AddFriendModal from '../../components/modal/AddFriendModal/add-friend-modal';
 
 const sampleFriends: IFriend[] = [
     {
@@ -39,18 +40,11 @@ const Friends: React.FC = () => {
     const [search, setSearch] = useState('');
     const [newFriendName, setNewFriendName] = useState('');
     const { t } = useTranslation("friend");
-    useDocumentTitle(t('friend-title'))
+    useDocumentTitle(t('friend-title'));
+    const [isAddFriendModalOpen, setIsAddFriendModalOpen] = useState<boolean>(false);
 
     const handleAddFriend = () => {
-        if (newFriendName.trim() === '') return;
-        const newFriend: IFriend = {
-            userId: "fsfsef",
-            username: newFriendName.trim(),
-            profileImg: "",
-            createdAt: new Date("2024-12-01T12:15:00Z")
-        };
-        setFriends([...friends, newFriend]);
-        setNewFriendName('');
+        setIsAddFriendModalOpen(true);
     };
 
     const filteredFriends = friends.filter((f) =>
@@ -70,7 +64,7 @@ const Friends: React.FC = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     />
-                    <FaSearch className='search-page-search-icon'/>
+                    {/* <FaSearch className='search-page-search-icon'/> */}
                 </div>
 
                 <div className="friends-page__add-wrapper">
@@ -94,6 +88,13 @@ const Friends: React.FC = () => {
                     <li className="friends-page__empty">No friends found.</li>
                 )}
             </div>
+
+            {/** Add friend modal*/}
+            <AddFriendModal
+                isOpen={isAddFriendModalOpen}
+                onClose={() => setIsAddFriendModalOpen(false)}
+                onAddFriend={() => {}}
+            />
         </div>
     );
 };

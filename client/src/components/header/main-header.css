@@ -33,7 +33,7 @@
 
 .main-manage-header-notification-icon {
     color: var(--primary-bg);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     cursor: pointer;
     transition: transform 0.3s;
 }
@@ -53,7 +53,7 @@
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
-    min-width: 160px;
+    min-width: max-content;
     z-index: 9999;
 }
 
@@ -77,6 +77,33 @@
 
 .user-action-text {
     transform: translateY(2px);
+}
+
+.main-header-notification-section {
+    position: relative;
+}
+
+.notification-count-container {
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+    width: 80%;
+    height: 80%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -5px;
+    top: 50%;
+}
+
+.count {
+    height: 100%;
+    transform: translateY(-3px);
+    color: #fff;
+    font-size: 15px;
+    font-family: 'spartan-md';
 }
 
 @keyframes bell-shake {

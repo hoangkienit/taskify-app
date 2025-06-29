@@ -7,7 +7,6 @@ import React, {
 
 import type { ReactNode, Dispatch, SetStateAction } from "react";
 import type { IUser } from "../interfaces/user.interface";
-import socket from "../configs/socket";
 
 
 interface UserContextType {
@@ -17,11 +16,11 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-interface UserProviderProps {
+interface NotificationProviderProps {
     children: ReactNode;
 }
 
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
     const [user, setUser] = useState<IUser | null>(() => {
         try {
             const userData = localStorage.getItem("user");
@@ -37,19 +36,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         } else {
             localStorage.removeItem("user");
         }
-
-        // For socket
-        if (user?._id) {
-            socket.connect();
-            console.log(import.meta.env.VITE_WEBSOCKET_URL)
-            socket.emit("join", user._id);
-        } else {
-            socket.disconnect();
-        }
-
-        return () => {
-            socket.off();
-        };
     }, [user]);
 
     return (

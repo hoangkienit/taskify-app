@@ -4,6 +4,7 @@ import { BadRequestError, NotFoundError } from "../core/error.response";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { LoginRequest, LoginResponse, RegisterRequest } from "../interfaces/auth.interface";
+import Friend from "../models/friend.model";
 
 class AuthService {
     private static async checkUserExists(field: string, value: string, t: TFunction, errorMsg: string) {
@@ -73,6 +74,13 @@ class AuthService {
         });
 
         await newUser.save();
+
+        const friend = new Friend({
+            userId: newUser._id,
+            friends: []
+        });
+
+        await friend.save();
 
         return true;
     }
