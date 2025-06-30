@@ -37,6 +37,10 @@
     "change-password-error-invalid-new": "Mật khẩu mới không hợp lệ",
     "change-password-error-length": "Mật khẩu mới phải có ít nhất 6 ký tự",
     "sent-you-friend-request": "đã gửi cho bạn lời mời kết bạn.",
-    "view-button": "Xem ngay"
+    "view-button": "Xem ngay",
+    "seconds-ago": "giây trước",
+    "minutes-ago": "phút trước",
+    "hours-ago": "giờ trước",
+    "days-ago": "ngày trước"
 
 }

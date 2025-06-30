@@ -9,63 +9,15 @@ import AddFriendModal from '../../components/modal/AddFriendModal/add-friend-mod
 import FriendRequestModal from '../../components/modal/FriendRequestsModal/friend-requests-modal';
 import { handleApiError } from '../../utils/handleApiError';
 import { FullPageLoader, Loading } from '../../components/loader/loader';
-import { GetFriends } from '../../api/friend.api';
-
-const sampleFriends: IFriend[] = [
-    {
-        userId: "1",
-        username: "Alice Nguyen",
-        profileImg: "https://iampesmobile.com/uploads/user-avatar-taskify.jpg",
-        createdAt: new Date("2023-01-15T10:00:00Z"),
-    },
-    {
-        userId: "2",
-        username: "Bob Tran",
-        profileImg: "https://i.pravatar.cc/150?img=12",
-        createdAt: new Date("2023-05-20T15:45:00Z"),
-    },
-    {
-        userId: "3",
-        username: "Charlie Le",
-        profileImg: "https://i.pravatar.cc/150?img=18",
-        createdAt: new Date("2024-02-10T08:30:00Z"),
-    },
-    {
-        userId: "4",
-        username: "David Pham",
-        profileImg: "https://i.pravatar.cc/150?img=5",
-        createdAt: new Date("2024-12-01T12:15:00Z"),
-    },
-];
-
-const mockRequests: IFriendRequest[] = [
-    {
-        id: '1',
-        username: 'Alice Nguyen',
-        avatarUrl: 'https://i.pravatar.cc/40?u=alice',
-        createdAt: new Date(Date.now() - 5 * 60 * 1000), // 5 mins ago
-    },
-    {
-        id: '2',
-        username: 'Bob Tran',
-        avatarUrl: 'https://i.pravatar.cc/40?u=bob',
-        createdAt: new Date(Date.now() - 2 * 3600 * 1000), // 2 hours ago
-    },
-    {
-        id: '3',
-        username: 'Charlie Pham',
-        createdAt: new Date(Date.now() - 1 * 24 * 3600 * 1000), // 1 day ago
-    },
-];
-
-
+import { GetFriendRequests, GetFriends } from '../../api/friend.api';
 
 const Friends: React.FC = () => {
     const [friends, setFriends] = useState<IFriend[]>([]);
     const [search, setSearch] = useState('');
     const { t } = useTranslation("friend");
     useDocumentTitle(t('friend-title'));
-    const [friendRequests, setFriendRequests] = useState<number>(0);
+    const [friendRequestCount, setFriendRequestCount] = useState<number>(0);
+    const [friendRequests, setFriendRequests] = useState<IFriendRequest[]>([]);
 
     // Flag
     const [isAddFriendModalOpen, setIsAddFriendModalOpen] = useState<boolean>(false);
@@ -84,6 +36,23 @@ const Friends: React.FC = () => {
         fetchFriends();
     }, []);
 
+    const fetchFriendRequests = async() => {
+        try {
+            setLoading(true);
+            const response = await GetFriendRequests();
+
+            if (response.success) {
+                setFriendRequests(response.data.requests);
+                setIsFriendRequestModalOpen(true);
+            }
+        } catch (error) {
+            handleApiError(error, "Error in Friend Request");
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
     const fetchFriends = async () => {
         try {
             setLoading(true);
@@ -91,7 +60,7 @@ const Friends: React.FC = () => {
 
             if (response.success) {
                 setFriends(response.data.friends);
-                setFriendRequests(response.data.requests);
+                setFriendRequestCount(response.data.requests);
             }
         } catch (error) {
             handleApiError(error, "Error in Friend");
@@ -132,10 +101,10 @@ const Friends: React.FC = () => {
                         {t('add-friend-button')}
                     </button>
                     <button
-                        onClick={() => setIsFriendRequestModalOpen(true)}
+                        onClick={() => fetchFriendRequests()}
                         className="friends-page__add-btn"
                     >
-                        {t('friend-requests-button')} ({friendRequests > 0 && `${friendRequests}`})
+                        {t('friend-requests-button')} {friendRequestCount > 0 && `(${friendRequestCount})`}
                     </button>
                 </div>
             </div>
@@ -165,7 +134,7 @@ const Friends: React.FC = () => {
                 onClose={() => setIsFriendRequestModalOpen(false)}
                 onAccept={() => { }}
                 onReject={() => { }}
-                requests={mockRequests}
+                requests={friendRequests}
             />
         </div>
     );

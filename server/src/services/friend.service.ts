@@ -5,7 +5,7 @@ import User from "../models/user.model";
 import Friend from "../models/friend.model";
 import mongoose from "mongoose";
 import { convertToObjectId } from "../utils";
-import { IFriend, IGetFriendsResponse } from "../interfaces/friend.interface";
+import { IFriend, IFriendRequest, IGetFriendRequestsResponse, IGetFriendsResponse } from "../interfaces/friend.interface";
 import FriendRequest from "../models/friend-request.model";
 
 const isValidObjectId = (id: string) => mongoose.Types.ObjectId.isValid(id);
@@ -95,6 +95,27 @@ class FriendService {
             friends: friends,
             requests: requests.length
         }
+    }
+
+    static async GetFriendRequests(userId: string): Promise<IGetFriendRequestsResponse> {
+        const requestDoc = await FriendRequest.find({
+            receiver: convertToObjectId(userId),
+            status: "pending"
+        }).populate("sender", "_id username profileImg")
+            .sort({ requestAt: -1 }).lean();
+
+        const requests: IFriendRequest[] = requestDoc?.map((req: any) => ({
+            _id: req.sender._id.toString(),
+            username: req.sender.username,
+            profileImg: req.sender.profileImg,
+            requestedAt: req.requestedAt
+        })) || [];
+
+
+        return {
+            requests: requests || []
+        }
+
     }
 }
 

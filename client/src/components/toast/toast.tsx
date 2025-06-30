@@ -43,7 +43,7 @@ export const showFriendRequestToast = (
             closeOnClick: false,
             draggable: false,
             autoClose: 5000,
-            hideProgressBar: false
+            hideProgressBar: false,
         }
     );
 }

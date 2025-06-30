@@ -28,29 +28,29 @@ const FriendRequestModal: React.FC<IFriendRequestModalProps> = ({
                         <p className="fr-modal__message">{ t("no-friend-requests")}</p>
                     ) : (
                         <ul className="fr-request__list">
-                            {requests.map(({ id, username, avatarUrl, createdAt }) => (
-                                <li key={id} className="fr-request__item">
+                            {requests.map(({ _id, username, profileImg, requestedAt }) => (
+                                <li key={_id} className="fr-request__item">
                                     <div className="fr-request__info">
                                         <img
-                                            src={avatarUrl || 'https://via.placeholder.com/40'}
+                                            src={profileImg || 'https://via.placeholder.com/40'}
                                             alt={username}
                                             className="fr-request__avatar"
                                         />
                                         <div className="fr-request__details">
                                             <span className="fr-request__username">{username}</span>
-                                            <span className="fr-request__time">{formatTimeAgo(createdAt, t)}</span>
+                                            <span className="fr-request__time">{formatTimeAgo(requestedAt, t)}</span>
                                         </div>
                                     </div>
                                     <div className="fr-request__actions">
                                         <button
                                             className="fr-btn fr-btn--accept"
-                                            onClick={() => onAccept(id)}
+                                            onClick={() => onAccept(_id)}
                                         >
                                             {t('accept-button')}
                                         </button>
                                         <button
                                             className="fr-btn fr-btn--reject"
-                                            onClick={() => onReject(id)}
+                                            onClick={() => onReject(_id)}
                                         >
                                             {t('reject-button')}
                                         </button>

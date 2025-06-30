@@ -16,10 +16,10 @@ export interface IAddFriendModalProps {
 }
 
 export interface IFriendRequest {
-    id: string;
+    _id: string;
     username: string;
-    avatarUrl?: string;
-    createdAt: string | Date;
+    profileImg: string;
+    requestedAt: string | Date;
 }
 
 export interface IFriendRequestModalProps {

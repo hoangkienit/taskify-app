@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import EditProfileModal from '../modal/edit-profile-modal';
 import { RiLockPasswordFill } from "react-icons/ri";
 import ChangePasswordModal from '../modal/change-password-modal';
-import FriendRequestToast from '../toast/friend-request-toast';
 import ToastNotification, { showFriendRequestToast, showTopToast } from '../toast/toast';
 import socket from '../../configs/socket';
 
@@ -91,9 +90,20 @@ export const MainHeader: React.FC = () => {
         
     }
 
+    const test = () => {
+        showFriendRequestToast({
+            from: "Kien",
+            avatar: "https://iampesmobile.com/uploads/user-avatar-taskify.jpg",
+            time:  "2025-06-30T06:23:20.622Z",
+            onClick: () => navigate('/friends'),
+            t: t
+        });
+    }
+
 
     return (
         <div className="main-manage-header">
+            <button onClick={test}>fsdfsfds</button>
             <div className="user-detail-section" ref={actionRef}>
                 <div className="main-header-notification-section">
                     <IoMdNotifications

@@ -37,5 +37,9 @@
     "change-password-error-invalid-new": "New password is invalid",
     "change-password-error-length": "New password must be at least 6 characters long",
     "sent-you-friend-request": "sent you a friend request.",
-    "view-button": "View Now"
+    "view-button": "View Now",
+    "seconds-ago": "seconds ago",
+    "minutes-ago": "minutes ago",
+    "hours-ago": "hours ago",
+    "days-ago": "days ago"
 }

@@ -42,6 +42,23 @@ class FriendController {
             }
         }).send(res);
     }
+
+    static async GetFriendRequests(req: Request, res: Response): Promise<void> {
+        if (!req.user || !req.user.userId) {
+            throw new UnauthorizedError("User not authenticated");
+        }
+
+        const userId = req.user.userId;
+
+        const response = await FriendService.GetFriendRequests(userId);
+
+        new OK({
+            message: "Get friend requests successfully",
+            data: {
+                requests: response.requests
+            }
+        }).send(res);
+    }
 }
 
 export default FriendController;

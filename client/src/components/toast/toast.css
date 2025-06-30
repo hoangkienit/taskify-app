@@ -7,14 +7,11 @@
 .frtoast-wrapper {
     display: flex;
     align-items: flex-start;
-    padding: 12px;
-    background: #fff;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    width: 300px;
+    width: max-content;
     gap: 10px;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'spartan';
+    margin: 0;
 }
 
 .frtoast-avatar {
@@ -26,13 +23,15 @@
 
 .frtoast-content {
     flex: 1;
-    font-size: 14px;
+    font-size: 17px;
     color: #333;
 }
 
 .frtoast-actions {
     margin-top: 8px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
 }
 
@@ -61,4 +60,9 @@
 
 .frtoast-reject:hover {
     background-color: #d5d5d5;
+}
+
+.frtoast-time {
+    font-size: 14px;
+    color: darkgrey;
 }

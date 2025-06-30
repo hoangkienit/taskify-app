@@ -28,3 +28,16 @@ export const GetFriends = async () => {
         throw error;
     }
 }
+
+export const GetFriendRequests = async () => {
+    try {
+        const response = await api.get(`/friend/friend-requests`
+            ,{
+            withCredentials: true
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
