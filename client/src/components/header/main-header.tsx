@@ -95,7 +95,6 @@ export const MainHeader: React.FC = () => {
                         onClick={() => {}}
                     />
                     <div className='notification-count-container'>
-                        <p className="count">1</p>
                     </div>
                 </div>
                 <img

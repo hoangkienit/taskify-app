@@ -26,6 +26,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 const server = http.createServer(app);
+app.use(cookieParser());
 initializeSocket(server);
 const port = process.env.PORT as string;
 
@@ -36,8 +37,8 @@ app.use(express.json());
 app.use(cors({
     origin: function (origin, callback) {
         const allowedOrigins = [
-            'http://localhost:5000',
-            'http://127.0.0.1:5000',
+            'http://localhost:3000',
+            'http://127.0.0.1:3000',
         ];
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -49,7 +50,6 @@ app.use(cors({
 }));
 
 //===========MIDDLEWARES===========
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 i18next.use(middleware.LanguageDetector).init({

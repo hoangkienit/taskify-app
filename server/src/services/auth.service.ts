@@ -1,10 +1,11 @@
 import { TFunction } from "i18next";
 import User from "../models/user.model";
-import { BadRequestError, NotFoundError } from "../core/error.response";
-import jwt from "jsonwebtoken";
+import { BadRequestError, NotFoundError, UnauthorizedError } from "../core/error.response";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { LoginRequest, LoginResponse, RegisterRequest } from "../interfaces/auth.interface";
 import Friend from "../models/friend.model";
+import logger from "../config/logger";
 
 class AuthService {
     private static async checkUserExists(field: string, value: string, t: TFunction, errorMsg: string) {
@@ -83,6 +84,35 @@ class AuthService {
         await friend.save();
 
         return true;
+    }
+
+    static async RefreshToken( refreshToken: string) {
+        try {
+            const decoded = jwt.verify(
+                refreshToken,
+                process.env.JWT_REFRESH_SECRET as string
+            ) as JwtPayload;
+
+            
+            const newAccessToken = jwt.sign(
+                {
+                    userId: decoded.userId,
+                    username: decoded.username,
+                    role: decoded.role,
+                },
+                process.env.JWT_ACCESS_SECRET as string,
+                {
+                    expiresIn: "30m",
+                }
+            );
+
+            return newAccessToken;
+        } catch (error) {
+            if (error instanceof Error) {
+                logger.error("Failed to fresh token:", error.message);
+            }
+            throw new UnauthorizedError("Invalid or expired refresh token");
+        }
     }
 }
 

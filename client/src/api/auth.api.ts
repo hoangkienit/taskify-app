@@ -58,3 +58,15 @@ export const LogoutUser = async (): Promise<LogoutResponse> => {
         throw error;
     }
 };
+
+export const RefreshToken = async (): Promise<void> => {
+    try {
+        const response = await api.post(`/auth/refresh-token`, {
+            withCredentials: true
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

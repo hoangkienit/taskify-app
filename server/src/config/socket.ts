@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import http from "http";
 import jwt from "jsonwebtoken";
-import cookie from "cookie";
+import * as cookie from "cookie";
 import logger from "./logger";
 import { JwtPayload } from "../interfaces/auth.interface";
 
@@ -22,32 +22,77 @@ export const initializeSocket = (server: http.Server): Server => {
         path: "/ws/socket.io",
     });
 
-    console.log("🟢 Socket.io server initialized");
+    console.log("🟢 Socket.io server initialized: ", process.env.CLIENT_URL);
 
     // Middleware to authenticate using cookies
     io.use((socket: AuthenticatedSocket, next) => {
         try {
-            const cookies = socket.request.headers.cookie;
-            if (!cookies) {
-                logger.error("❌ Authentication error: No cookies sent");
-                return next(new Error("No cookies found"));
+            // Debug logging
+            // console.log("🔍 Socket authentication attempt:");
+            // console.log("Headers:", socket.handshake.headers);
+            // console.log("Cookie header:", socket.handshake.headers.cookie);
+
+            const rawCookie = socket.handshake.headers.cookie;
+
+            if (!rawCookie || typeof rawCookie !== "string") {
+                const errorMsg = "No cookies sent";
+                logger.error(`❌ Authentication error: ${errorMsg}`);
+                // console.log("❌ No cookie header found");
+                return next(new Error(errorMsg));
             }
 
-            const parsedCookies = cookie.parse(cookies);
+            // console.log("📝 Raw cookie:", rawCookie);
+
+            const parsedCookies = cookie.parse(rawCookie);
+            // console.log("🍪 Parsed cookies:", parsedCookies);
+            // console.log("🔑 Available cookie keys:", Object.keys(parsedCookies));
+
             const token = parsedCookies.accessToken;
 
             if (!token) {
-                logger.error("❌ Authentication error: Token not found in cookies");
-                return next(new Error("No token provided"));
+                const errorMsg = "Token not found in cookies";
+                logger.error(`❌ Authentication error: ${errorMsg}`);
+                // console.log("❌ accessToken not found in cookies");
+                // console.log("Available cookies:", Object.keys(parsedCookies));
+                return next(new Error(errorMsg));
             }
 
+            // console.log("🎫 Token found:", token.substring(0, 20) + "...");
+
+            // Verify JWT token
             const user = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string) as JwtPayload;
-            
+            // console.log("✅ Token verified for user:", user.username);
+
             socket.user = user;
             next();
         } catch (error: any) {
-            logger.error("❌ Authentication error:", error.message);
-            return next(new Error("Token expired or invalid"));
+            // Better error handling
+            let errorMessage = "Authentication failed";
+            
+            if (error.name === 'JsonWebTokenError') {
+                errorMessage = "Invalid token format";
+            } else if (error.name === 'TokenExpiredError') {
+                errorMessage = "Token expired";
+            } else if (error.name === 'NotBeforeError') {
+                errorMessage = "Token not active yet";
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
+            logger.error("❌ Authentication error:", {
+                error: errorMessage,
+                errorType: error.name,
+                errorDetails: error.message,
+                timestamp: new Date().toISOString()
+            });
+
+            console.log("❌ JWT Verification failed:", {
+                errorName: error.name,
+                errorMessage: error.message,
+                hasSecret: !!process.env.JWT_ACCESS_SECRET
+            });
+
+            return next(new Error(errorMessage));
         }
     });
 
@@ -55,15 +100,34 @@ export const initializeSocket = (server: http.Server): Server => {
         console.log(`🔌 Client connected: ${socket.id}, User: ${socket.user?.username}`);
 
         socket.on("join", (room: string) => {
+            console.log(`👥 User ${socket.user?.username} joining room: ${room}`);
             socket.join(room);
         });
 
         socket.on("admin_join", () => {
+            console.log(`👑 Admin ${socket.user?.username} joining admin room`);
             socket.join("admin_room");
         });
 
-        socket.on("disconnect", () => {
-            console.log("🔌 Client disconnected:", socket.id);
+        socket.on("disconnect", (reason) => {
+            console.log(`🔌 Client disconnected: ${socket.id}, User: ${socket.user?.username}, Reason: ${reason}`);
+        });
+
+        // Handle authentication errors
+        socket.on("error", (error) => {
+            console.log("❌ Socket error:", error);
+            logger.error("Socket error:", error);
+        });
+    });
+
+    // Global error handler
+    io.engine.on("connection_error", (err) => {
+        console.log("❌ Connection error:", err);
+        logger.error("Socket.io connection error:", {
+            message: err.message,
+            description: err.description,
+            context: err.context,
+            type: err.type
         });
     });
 

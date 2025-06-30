@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CREATED, OK } from '../core/success.response';
 import AuthService from '../services/auth.service';
+import { BadRequestError } from '../core/error.response';
 
 class AuthController {
     static async Login(req: Request, res: Response): Promise<void> {
@@ -56,6 +57,27 @@ class AuthController {
         
         new CREATED({
             message: t("auth-success.logout"),
+            data: {}
+        }).send(res);
+    }
+
+    static async RefreshToken(req: Request, res: Response): Promise<void> {
+        const refreshToken = req.cookies.refreshToken;
+
+        if (!refreshToken) {
+            throw new BadRequestError("No refresh token provided");
+        }
+
+        const accessToken = await AuthService.RefreshToken(refreshToken);
+
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+        });
+
+        new OK({
+            message: "Refresh token successfully",
             data: {}
         }).send(res);
     }

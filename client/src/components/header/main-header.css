@@ -87,15 +87,15 @@
     position: absolute;
     background-color: red;
     border-radius: 50%;
-    padding: 5px;
-    width: 80%;
-    height: 80%;
+    width: 35%;
+    height: 35%;
+    outline: 1.5px solid #fff;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: -5px;
-    top: 50%;
+    right: 0px;
+    top: 15%;
 }
 
 .count {
