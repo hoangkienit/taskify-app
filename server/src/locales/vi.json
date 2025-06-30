@@ -54,7 +54,8 @@
     },
     "friend-error": {
         "not-found": "Không tìm thấy người dùng",
-        "already-friend": "Bạn với người này đã là bạn bè"
+        "already-friend": "Bạn với người này đã là bạn bè",
+        "alreay-sent-request": "Đã gửi yêu cầu, vui lòng đợi!"
     },
     "friend-success": {
         "add-success": "Đã gửi lời mời kết bạn"

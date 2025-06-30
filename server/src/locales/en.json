@@ -54,7 +54,8 @@
     },
     "friend-error": {
         "not-found": "User not found",
-        "already-friend": "You and this person are already friends"
+        "already-friend": "You and this person are already friends",
+        "alreay-sent-request": "Already sent request, please wait!"
     },
     "friend-success": {
         "add-success": "Friend request sent"

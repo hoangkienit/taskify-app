@@ -25,16 +25,18 @@ export const showFriendRequestToast = (
     {
         from,
         avatar,
-        onAccept,
-        onReject
+        time,
+        onClick,
+        t
     }: IToastFriendRequestProps
 ) => {
     toast(
         <FriendRequestToast
             from={from}
             avatar={avatar}
-            onAccept={onAccept}
-            onReject={onReject}
+            time={time}
+            onClick={onClick}
+            t={t}
         />,
         {
             position: 'bottom-right',

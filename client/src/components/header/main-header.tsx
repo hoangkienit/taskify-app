@@ -44,8 +44,14 @@ export const MainHeader: React.FC = () => {
 
     useEffect(() => {
         if (socket) {
-            socket.on("test", () => {
-                showTopToast("Tester man", "success", 5000);
+            socket.on("friend-request", (userId, username, profileImg, time) => {
+                showFriendRequestToast({
+                    from: username,
+                    avatar: profileImg,
+                    time: time,
+                    onClick: () => navigate('/friends'),
+                    t: t
+                });
             });
 
             return () => {

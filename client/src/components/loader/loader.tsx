@@ -8,7 +8,7 @@ interface LoaderProps {
     loading: boolean
 }
 
-export const Loading: FC<LoaderProps> = ({color, size, loading}) => {
+export const Loading: FC<LoaderProps> = ({ color, size, loading }) => {
 
     return (
         <div className="loader-container">
@@ -18,5 +18,17 @@ export const Loading: FC<LoaderProps> = ({color, size, loading}) => {
                 size={size}
             />
         </div>
+    )
+}
+
+export const FullPageLoader = ({size, loading }: LoaderProps, color = '#5c70f3') => {
+    return (
+        <div className='loading-loader'>
+        <Loading
+            size={size}
+            color={color}
+            loading={loading}
+        />
+    </div>
     )
 }

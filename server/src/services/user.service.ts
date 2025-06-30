@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 
 class UserService {
-    static async updateUserProfile(userId: string, email: string, phone: string, avatar: string) {
+    static async UpdateUserProfile(userId: string, email: string, phone: string, avatar: string) {
         const user = await User.findOne({ _id: convertToObjectId(userId) });
         if (!user) {
             throw new NotFoundError(`User with id ${userId} not found`);
@@ -20,7 +20,7 @@ class UserService {
         return user;
     }
 
-    static async changePassword(userId: string, currentPassword: string, newPassword: string, t: TFunction) {
+    static async ChangePassword(userId: string, currentPassword: string, newPassword: string, t: TFunction) {
         const user = await User.findOne({ _id: convertToObjectId(userId) });
         if (!user) {
             throw new NotFoundError(`User with id ${userId} not found`);

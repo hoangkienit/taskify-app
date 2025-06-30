@@ -6,6 +6,14 @@
     "add-friend-button": "Add new friend",
     "add-friend-modal-title": "Find and Add Friend",
     "add-friend-input-placeholder": "Enter name or ID",
-    "send-request-button": "Send Request"
-    
+    "send-request-button": "Send Request",
+    "accept-button": "Accept",
+    "reject-button": "Reject",
+    "seconds-ago": "seconds ago",
+    "minutes-ago": "minutes ago",
+    "hours-ago": "hours ago",
+    "days-ago": "days ago",
+    "no-friend-requests": "No friend requests.",
+    "just-now": "just now",
+    "no-friend-found": "No friends found."
 }

@@ -14,3 +14,18 @@ export interface IAddFriendModalProps {
     onAddFriend: (usernameOrId: string) => void;
     isOpen: boolean;
 }
+
+export interface IFriendRequest {
+    id: string;
+    username: string;
+    avatarUrl?: string;
+    createdAt: string | Date;
+}
+
+export interface IFriendRequestModalProps {
+    isOpen: boolean;
+    requests: IFriendRequest[];
+    onClose: () => void;
+    onAccept: (id: string) => void;
+    onReject: (id: string) => void;
+}

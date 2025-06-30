@@ -53,5 +53,14 @@
   padding-top: 5%;
   background-color: #f7f7f7;
   min-height: 100vh;
-  height: 1000px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+      padding-left: 10%;
+      padding-top: 7%;
+    }
 }

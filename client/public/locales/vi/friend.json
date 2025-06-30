@@ -6,5 +6,15 @@
     "add-friend-button": "Thêm bạn mới",
     "add-friend-modal-title": "Tìm và thêm bạn",
     "add-friend-input-placeholder": "Nhập tên hoặc ID",
-    "send-request-button": "Gửi lời mời"
+    "send-request-button": "Gửi lời mời",
+    "friend-requests-button": "Yêu cầu kết bạn",
+    "accept-button": "Đồng ý",
+    "reject-button": "Từ chối",
+    "seconds-ago": "giây trước",
+    "minutes-ago": "phút trước",
+    "hours-ago": "giờ trước",
+    "days-ago": "ngày trước",
+    "no-friend-requests": "Không có yêu cầu kết bạn.",
+    "just-now": "bây giờ",
+    "no-friend-found": "Không tìm thấy bạn bè nào."
 }

@@ -35,5 +35,7 @@
     "change-password-error-empty-confirm": "Confirm password cannot be empty",
     "change-password-error-mismatch": "New password and confirm password do not match",
     "change-password-error-invalid-new": "New password is invalid",
-    "change-password-error-length": "New password must be at least 6 characters long"
+    "change-password-error-length": "New password must be at least 6 characters long",
+    "sent-you-friend-request": "sent you a friend request.",
+    "view-button": "View Now"
 }

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/friends.css';
 import { FriendCard } from '../../components/friend/friend-card';
-import type { IFriend } from '../../interfaces/friend.interface';
+import type { IFriend, IFriendRequest } from '../../interfaces/friend.interface';
 import { FaSearch } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import AddFriendModal from '../../components/modal/AddFriendModal/add-friend-modal';
+import FriendRequestModal from '../../components/modal/FriendRequestsModal/friend-requests-modal';
+import { handleApiError } from '../../utils/handleApiError';
+import { FullPageLoader, Loading } from '../../components/loader/loader';
+import { GetFriends } from '../../api/friend.api';
 
 const sampleFriends: IFriend[] = [
     {
@@ -34,14 +38,39 @@ const sampleFriends: IFriend[] = [
     },
 ];
 
+const mockRequests: IFriendRequest[] = [
+    {
+        id: '1',
+        username: 'Alice Nguyen',
+        avatarUrl: 'https://i.pravatar.cc/40?u=alice',
+        createdAt: new Date(Date.now() - 5 * 60 * 1000), // 5 mins ago
+    },
+    {
+        id: '2',
+        username: 'Bob Tran',
+        avatarUrl: 'https://i.pravatar.cc/40?u=bob',
+        createdAt: new Date(Date.now() - 2 * 3600 * 1000), // 2 hours ago
+    },
+    {
+        id: '3',
+        username: 'Charlie Pham',
+        createdAt: new Date(Date.now() - 1 * 24 * 3600 * 1000), // 1 day ago
+    },
+];
+
+
 
 const Friends: React.FC = () => {
-    const [friends, setFriends] = useState<IFriend[]>(sampleFriends);
+    const [friends, setFriends] = useState<IFriend[]>([]);
     const [search, setSearch] = useState('');
-    const [newFriendName, setNewFriendName] = useState('');
     const { t } = useTranslation("friend");
     useDocumentTitle(t('friend-title'));
+    const [friendRequests, setFriendRequests] = useState<number>(0);
+
+    // Flag
     const [isAddFriendModalOpen, setIsAddFriendModalOpen] = useState<boolean>(false);
+    const [isFriendRequestModalOpen, setIsFriendRequestModalOpen] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const handleAddFriend = () => {
         setIsAddFriendModalOpen(true);
@@ -51,21 +80,49 @@ const Friends: React.FC = () => {
         f.username.toLowerCase().includes(search.toLowerCase())
     );
 
+    useEffect(() => {
+        fetchFriends();
+    }, []);
+
+    const fetchFriends = async () => {
+        try {
+            setLoading(true);
+            const response = await GetFriends();
+
+            if (response.success) {
+                setFriends(response.data.friends);
+                setFriendRequests(response.data.requests);
+            }
+        } catch (error) {
+            handleApiError(error, "Error in Friend");
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    if (loading) {
+        return (
+            <FullPageLoader
+                size={50}
+                loading={loading}
+                color=''
+            />
+        )
+    }
+
     return (
         <div className="friends-page">
             <h1 className="friends-page__title">{ t('friend-list-title')}</h1>
 
             <div className="friends-page__top-bar">
-                <div className="friend-search-input-section">
-                    <input
+            <input
                     className="friends-page__search-input"
                     type="text"
                     placeholder={t('search-friend-placeholder')}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     />
-                    {/* <FaSearch className='search-page-search-icon'/> */}
-                </div>
 
                 <div className="friends-page__add-wrapper">
                     <button
@@ -73,6 +130,12 @@ const Friends: React.FC = () => {
                         className="friends-page__add-btn"
                     >
                         {t('add-friend-button')}
+                    </button>
+                    <button
+                        onClick={() => setIsFriendRequestModalOpen(true)}
+                        className="friends-page__add-btn"
+                    >
+                        {t('friend-requests-button')} ({friendRequests > 0 && `${friendRequests}`})
                     </button>
                 </div>
             </div>
@@ -85,7 +148,7 @@ const Friends: React.FC = () => {
                     />
                 ))}
                 {filteredFriends.length === 0 && (
-                    <li className="friends-page__empty">No friends found.</li>
+                    <li className="friends-page__empty">{t('no-friend-found')}</li>
                 )}
             </div>
 
@@ -94,6 +157,15 @@ const Friends: React.FC = () => {
                 isOpen={isAddFriendModalOpen}
                 onClose={() => setIsAddFriendModalOpen(false)}
                 onAddFriend={() => {}}
+            />
+
+            {/** Friend requests modal*/}
+            <FriendRequestModal
+                isOpen={isFriendRequestModalOpen}
+                onClose={() => setIsFriendRequestModalOpen(false)}
+                onAccept={() => { }}
+                onReject={() => { }}
+                requests={mockRequests}
             />
         </div>
     );

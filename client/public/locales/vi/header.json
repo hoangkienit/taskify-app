@@ -35,6 +35,8 @@
     "change-password-error-empty-confirm": "Xác nhận mật khẩu không được để trống",
     "change-password-error-mismatch": "Mật khẩu mới và xác nhận mật khẩu không khớp",
     "change-password-error-invalid-new": "Mật khẩu mới không hợp lệ",
-    "change-password-error-length": "Mật khẩu mới phải có ít nhất 6 ký tự"
+    "change-password-error-length": "Mật khẩu mới phải có ít nhất 6 ký tự",
+    "sent-you-friend-request": "đã gửi cho bạn lời mời kết bạn.",
+    "view-button": "Xem ngay"
 
 }

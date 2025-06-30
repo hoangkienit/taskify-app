@@ -15,3 +15,16 @@ export const AddFriend = async (receiverId: string) => {
         throw error;
     }
 };
+
+export const GetFriends = async () => {
+    try {
+        const response = await api.get(`/friend/friend-list`
+            ,{
+            withCredentials: true
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

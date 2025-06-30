@@ -7,10 +7,8 @@ import { changePasswordSchema, updateUserProfileSchema } from '../validators/use
 
 const router = express.Router();
 
-router.get('/test', Authenticate, asyncHandler(UserController.getUser));
+router.post('/update-profile', validate(updateUserProfileSchema), Authenticate, asyncHandler(UserController.UpdateUserProfile));
 
-router.post('/update-profile', validate(updateUserProfileSchema), Authenticate, asyncHandler(UserController.updateUserProfile));
-
-router.post('/change-password', validate(changePasswordSchema), Authenticate, asyncHandler(UserController.changePassword));
+router.post('/change-password', validate(changePasswordSchema), Authenticate, asyncHandler(UserController.ChangePassword));
 
 export default router;

@@ -88,7 +88,7 @@ const EditProfileModal = ({
     if (!isOpen) return null;
 
     return (
-        <div className='edit-profile-modal__overlay'>
+        <div className='edit-profile-modal__overlay' onClick={onCancel}>
             <div className="edit-profile-container">
                 <h2 className="edit-profile-title">{title}</h2>
 

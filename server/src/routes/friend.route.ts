@@ -7,6 +7,8 @@ import FriendController from '../controllers/friend.controller';
 
 const router = express.Router();
 
-router.post('/add-friend', validate(addFriendSchema), Authenticate, asyncHandler(FriendController.addFriend));
+router.post('/add-friend', validate(addFriendSchema), Authenticate, asyncHandler(FriendController.AddFriend));
+
+router.get('/friend-list', Authenticate, asyncHandler(FriendController.GetFriends));
 
 export default router;

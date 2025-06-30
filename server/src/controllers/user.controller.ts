@@ -5,24 +5,14 @@ import { UnauthorizedError } from "../core/error.response";
 
 
 class UserController {
-    static async getUser(req: Request, res: Response): Promise<void> {
-        
-        new OK({
-            message: req.t("user-success.get-user"),
-            data: {
-                user: "Nguyen Hoang Kien"
-            }
-        }).send(res);
-    }
-
-    static async updateUserProfile(req: Request, res: Response): Promise<void> {
+    static async UpdateUserProfile(req: Request, res: Response): Promise<void> {
         const { email, phone, avatar } = req.body;
         if (!req.user || !req.user.userId) {
             throw new UnauthorizedError("User not authenticated");
         }
         const userId = req.user.userId;
 
-        const user = await UserService.updateUserProfile(userId, email, phone, avatar);
+        const user = await UserService.UpdateUserProfile(userId, email, phone, avatar);
 
         new OK({
             message: req.t("user-success.update-profile"),
@@ -32,7 +22,7 @@ class UserController {
         }).send(res);
     }
 
-    static async changePassword(req: Request, res: Response): Promise<void> {
+    static async ChangePassword(req: Request, res: Response): Promise<void> {
         const { currentPassword, newPassword, confirmPassword } = req.body;
         if (!req.user || !req.user.userId) {
             throw new UnauthorizedError("User not authenticated");
@@ -44,7 +34,7 @@ class UserController {
 
         const userId = req.user.userId;
 
-        const user = await UserService.changePassword(userId, currentPassword, newPassword, req.t);
+        const user = await UserService.ChangePassword(userId, currentPassword, newPassword, req.t);
 
         new OK({
             message: req.t("user-success.change-password"),
