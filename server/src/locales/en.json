@@ -59,5 +59,8 @@
     },
     "friend-success": {
         "add-success": "Friend request sent"
+    },
+    "notification": {
+        "friend-request-noti": "sent you a friend request."
     }
 }

@@ -59,5 +59,8 @@
     },
     "friend-success": {
         "add-success": "Đã gửi lời mời kết bạn"
+    },
+    "notification": {
+        "friend-request-noti": "đã gửi cho bạn một lời mời kết bạn."
     }
 }

@@ -41,5 +41,8 @@
     "seconds-ago": "seconds ago",
     "minutes-ago": "minutes ago",
     "hours-ago": "hours ago",
-    "days-ago": "days ago"
+    "days-ago": "days ago",
+    "just-now": "just now",
+    "no-notification": "No notification.",
+    "sent-a-friend-request": "sent you a friend request."
 }

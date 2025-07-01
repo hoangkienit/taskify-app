@@ -41,6 +41,8 @@
     "seconds-ago": "giây trước",
     "minutes-ago": "phút trước",
     "hours-ago": "giờ trước",
-    "days-ago": "ngày trước"
-
+    "days-ago": "ngày trước",
+    "just-now": "bây giờ",
+    "no-notification": "Không có thông báo.",
+    "sent-a-friend-request": "gửi cho bạn một lời mời kết bạn."
 }

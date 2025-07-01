@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import { convertToObjectId } from "../utils";
 import { IFriend, IFriendRequest, IGetFriendRequestsResponse, IGetFriendsResponse } from "../interfaces/friend.interface";
 import FriendRequest from "../models/friend-request.model";
+import Notification from "../models/notification.model";
 
 const isValidObjectId = (id: string) => mongoose.Types.ObjectId.isValid(id);
 
@@ -52,13 +53,25 @@ class FriendService {
 
         await newFriendRequest.save();
 
+        // Save notification
+        const newNotification = new Notification({
+            receiverId: recipient._id,
+            type: "friend_request",
+            content: `${requestUser?.username}`,
+            link: "/friends"
+        });
+
+        await newNotification.save();
+
         const io = getIO();
         io.to(recipient._id.toString()).emit("friend-request", {
             userId: requesterId,
             username: requestUser?.username,
             profileImg: requestUser?.profileImg,
-            time: newFriendRequest.requestedAt
+            requestedAt: newFriendRequest.requestedAt
         });
+
+        io.to(recipient._id.toString()).emit("notification:new", newNotification);
 
         return true;
     }
@@ -115,6 +128,13 @@ class FriendService {
         return {
             requests: requests || []
         }
+
+    }
+
+    static async AcceptFriendRequest(requestId: string) {
+        const request = await FriendRequest.findOne({_id: convertToObjectId(requestId)});
+        if(!request) throw new BadRequestError("Friend request not found");
+
 
     }
 }

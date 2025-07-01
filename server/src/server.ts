@@ -6,6 +6,7 @@ dotenv.config();
 import UserRoute from './routes/user.route';
 import AuthRoute from './routes/auth.route';
 import FriendRoute from './routes/friend.route';
+import NotificationRoute from './routes/notification.route';
 
 
 import connectDb from './config/mongo';
@@ -77,6 +78,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', AuthRoute);
 app.use('/api/v1/user', UserRoute);
 app.use('/api/v1/friend', FriendRoute);
+app.use('/api/v1/notification', NotificationRoute);
 
 // Error handling
 app.use(errorHandler);

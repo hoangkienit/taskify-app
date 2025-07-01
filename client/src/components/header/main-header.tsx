@@ -3,7 +3,6 @@ import { useUser } from '../../context/UserContext';
 import './main-header.css';
 import { IoMdNotifications } from 'react-icons/io';
 import { FaUserCircle } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import ConfirmModal from '../modal/confirm-modal';
 import { useTranslation } from 'react-i18next';
@@ -13,25 +12,37 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import ChangePasswordModal from '../modal/change-password-modal';
 import ToastNotification, { showFriendRequestToast, showTopToast } from '../toast/toast';
 import socket from '../../configs/socket';
+import type { INotification } from '../../interfaces/notification.interface';
+import { formatTimeAgo } from '../../utils';
+import { handleApiError } from '../../utils/handleApiError';
+import { GetNotifications } from '../../api/notification.api';
+import type { IFriendRequest } from '../../interfaces/friend.interface';
+
+type OpenPopup = null | "notifications" | "actions";
 
 export const MainHeader: React.FC = () => {
     const { user } = useUser();
     const { t } = useTranslation("header");
-    const [showActions, setShowActions] = useState<boolean>(false);
     const actionRef = useRef<HTMLDivElement>(null);
+    const [showNotificationBadge, setShowNotificationBadge] = useState(false);
+    const [notifications, setNotifications] = useState<INotification[]>([]);
+
 
     // State for modals
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
     const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState<boolean>(false);
     const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState<boolean>(false);
+    const [openPopup, setOpenPopup] = useState<OpenPopup>(null);
 
     const navigate = useNavigate();
 
 
     useEffect(() => {
+        fetchNotifications();
+
         const handleClickOutside = (e: MouseEvent) => {
             if (actionRef.current && !actionRef.current.contains(e.target as Node)) {
-                setShowActions(false);
+                setOpenPopup(null);
             }
         };
 
@@ -43,21 +54,47 @@ export const MainHeader: React.FC = () => {
 
     useEffect(() => {
         if (socket) {
-            socket.on("friend-request", (userId, username, profileImg, time) => {
+            socket.on("friend-request", (friendRequest: IFriendRequest) => {
                 showFriendRequestToast({
-                    from: username,
-                    avatar: profileImg,
-                    time: time,
+                    from: friendRequest.username,
+                    avatar: friendRequest.profileImg,
+                    time: friendRequest.requestedAt,
                     onClick: () => navigate('/friends'),
                     t: t
                 });
             });
 
+            socket.on("notification:new", (notification: INotification) => {
+                setNotifications(prev => [{
+                    ...notification,
+                    content: `${notification.content} ${t('sent-a-friend-request')}`
+                }, ...prev]);
+            });
+
             return () => {
-                socket.off("test", () => { });
+                socket.off("friend-request");
+                socket.off("notification:new");
             }
         }
     }, [socket]);
+
+    useEffect(() => {
+        if(notifications.find(noti => noti.isRead === false)){
+            setShowNotificationBadge(true);
+        }else setShowNotificationBadge(false);
+    }, [notifications]);
+
+    const fetchNotifications = async() => {
+        try {
+            const notificationResponse = await GetNotifications(8);
+
+            if(notificationResponse.success){
+                setNotifications(notificationResponse.data.notifications);
+            }
+        } catch (error) {
+            handleApiError(error, "Error in Notifications");
+        }
+    }
 
     const handleLogout = () => {
         navigate('/logout', { replace: true });
@@ -66,35 +103,30 @@ export const MainHeader: React.FC = () => {
     const menuItems = [
         {
             name: t('profile-title'), icon: <FaUserCircle />, action: () => {
-                setShowActions(false);
+                setOpenPopup(null);
                 setIsEditProfileModalOpen(true);
             }
         },
         {
             name: t('password-change-title'), icon: <RiLockPasswordFill />, action: () => {
                 setIsChangePasswordModalOpen(true);
-                setShowActions(false);
-        } },
+                setOpenPopup(null);
+            }
+        },
         {
             name: t('logout-title'), icon: <RiLogoutBoxRFill />, action: () => {
                 setIsLogoutModalOpen(true);
-                setShowActions(false);
-        } }
+                setOpenPopup(null);
+            }
+        }
     ];
 
-    const onAccept = () => {
-
-    }
-
-    const onReject = () => {
-        
-    }
 
     const test = () => {
         showFriendRequestToast({
             from: "Kien",
             avatar: "https://iampesmobile.com/uploads/user-avatar-taskify.jpg",
-            time:  "2025-06-30T06:23:20.622Z",
+            time: "2025-06-30T06:23:20.622Z",
             onClick: () => navigate('/friends'),
             t: t
         });
@@ -108,18 +140,20 @@ export const MainHeader: React.FC = () => {
                 <div className="main-header-notification-section">
                     <IoMdNotifications
                         className="main-manage-header-notification-icon"
-                        onClick={() => {}}
+                        onClick={() => setOpenPopup(prev => (prev === "notifications" ? null : "notifications"))}
                     />
-                    <div className='notification-count-container'>
-                    </div>
+                    {
+                        showNotificationBadge && <div className='notification-count-container'>
+                        </div>
+                    }
                 </div>
                 <img
                     src={user?.profileImg || '/default-avatar.png'}
                     alt="User Avatar"
                     className="main-manage-header-user-avatar"
-                    onClick={() => setShowActions((prev) => !prev)}
+                    onClick={() => setOpenPopup(prev => (prev === "actions" ? null : "actions"))}
                 />
-                {showActions && (
+                {openPopup === "actions" && (
                     <div className="user-action-popup">
                         {menuItems.map((item, index) => (
                             <div
@@ -133,6 +167,26 @@ export const MainHeader: React.FC = () => {
                         ))}
                     </div>
                 )}
+
+                {openPopup === "notifications" && (
+                    <div className="notification-dropdown">
+                        {notifications.length === 0 ? (
+                            <div className="notification-empty">{t('no-notification')}</div>
+                        ) : (
+                            notifications.map(noti => (
+                                <div
+                                    key={noti._id}
+                                    className={`notification-item ${noti.isRead ? '' : 'unread'}`}
+                                    onClick={() => {}}
+                                >
+                                    <div className="notification-content">{noti.content}</div>
+                                    <div className="notification-time">{formatTimeAgo(noti.createdAt, t)}</div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                )}
+
             </div>
 
             {/** Log out modal */}
