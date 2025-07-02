@@ -41,3 +41,18 @@ export const GetFriendRequests = async () => {
         throw error;
     }
 }
+
+export const AcceptFriendRequest = async (requestId: string) => {
+    try {
+        const response = await api.post(`/friend/accept`,{
+            requestId
+        }
+            ,{
+            withCredentials: true
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

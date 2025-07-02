@@ -59,6 +59,17 @@ class FriendController {
             }
         }).send(res);
     }
+
+    static async AcceptFriendRequest(req: Request, res: Response): Promise<void> {
+        const requestId = req.body.requestId;
+
+        await FriendService.AcceptFriendRequest(requestId);
+
+        new OK({
+            message: "Friend accepted success",
+            data: {}
+        }).send(res);
+    }
 }
 
 export default FriendController;

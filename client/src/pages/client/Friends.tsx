@@ -36,6 +36,14 @@ const Friends: React.FC = () => {
         fetchFriends();
     }, []);
 
+    const onAccept = async(_id: string) => {
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+
     const fetchFriendRequests = async() => {
         try {
             setLoading(true);

@@ -13,4 +13,6 @@ router.get('/friend-list', Authenticate, asyncHandler(FriendController.GetFriend
 
 router.get('/friend-requests', Authenticate, asyncHandler(FriendController.GetFriendRequests));
 
+router.post('/accept', Authenticate, asyncHandler(FriendController.AcceptFriendRequest));
+
 export default router;

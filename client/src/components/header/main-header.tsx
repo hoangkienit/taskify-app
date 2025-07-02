@@ -13,7 +13,7 @@ import ChangePasswordModal from '../modal/change-password-modal';
 import ToastNotification, { showFriendRequestToast, showTopToast } from '../toast/toast';
 import socket from '../../configs/socket';
 import type { INotification } from '../../interfaces/notification.interface';
-import { formatTimeAgo } from '../../utils';
+import { formatNotificationContent, formatTimeAgo } from '../../utils';
 import { handleApiError } from '../../utils/handleApiError';
 import { GetNotifications } from '../../api/notification.api';
 import type { IFriendRequest } from '../../interfaces/friend.interface';
@@ -64,10 +64,20 @@ export const MainHeader: React.FC = () => {
                 });
             });
 
+            socket.on("friend-request-accepted", (friendRequest: IFriendRequest) => {
+                // showFriendRequestToast({
+                //     from: friendRequest.username,
+                //     avatar: friendRequest.profileImg,
+                //     time: friendRequest.requestedAt,
+                //     onClick: () => navigate('/friends'),
+                //     t: t
+                // });
+            });
+
             socket.on("notification:new", (notification: INotification) => {
                 setNotifications(prev => [{
                     ...notification,
-                    content: `${notification.content} ${t('sent-a-friend-request')}`
+                    content: notification.content.replace("{{sent-a-friend-request}}", t("sent-a-friend-request"))
                 }, ...prev]);
             });
 
@@ -79,17 +89,22 @@ export const MainHeader: React.FC = () => {
     }, [socket]);
 
     useEffect(() => {
-        if(notifications.find(noti => noti.isRead === false)){
+        if (notifications.find(noti => noti.isRead === false)) {
             setShowNotificationBadge(true);
-        }else setShowNotificationBadge(false);
+        } else setShowNotificationBadge(false);
     }, [notifications]);
 
-    const fetchNotifications = async() => {
+    const fetchNotifications = async () => {
         try {
             const notificationResponse = await GetNotifications(8);
 
-            if(notificationResponse.success){
-                setNotifications(notificationResponse.data.notifications);
+            if (notificationResponse.success) {
+                const formatNotification = notificationResponse.data.notifications.map((noti: INotification) => ({
+                    ...noti,
+                    content: `${noti.content} ${formatNotificationContent(noti.type, t)}`,
+                }));
+
+                setNotifications(formatNotification);
             }
         } catch (error) {
             handleApiError(error, "Error in Notifications");
@@ -177,7 +192,7 @@ export const MainHeader: React.FC = () => {
                                 <div
                                     key={noti._id}
                                     className={`notification-item ${noti.isRead ? '' : 'unread'}`}
-                                    onClick={() => {}}
+                                    onClick={() => { }}
                                 >
                                     <div className="notification-content">{noti.content}</div>
                                     <div className="notification-time">{formatTimeAgo(noti.createdAt, t)}</div>

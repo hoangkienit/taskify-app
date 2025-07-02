@@ -1,18 +1,57 @@
 // components/FriendRequestModal.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import './friend-requests-modal.css';
 import type { IFriendRequestModalProps } from '../../../interfaces/friend.interface';
 import { formatTimeAgo } from '../../../utils';
 import { useTranslation } from 'react-i18next';
+import { Loading } from '../../loader/loader';
+import { handleApiError } from '../../../utils/handleApiError';
+import { AcceptFriendRequest } from '../../../api/friend.api';
+import { showTopToast } from '../../toast/toast';
 
 const FriendRequestModal: React.FC<IFriendRequestModalProps> = ({
     isOpen,
     requests,
     onClose,
-    onAccept,
-    onReject
 }) => {
     const { t } = useTranslation("friend");
+    const [loading, setLoading] = useState(false);
+
+    const onAccept = async(_id: string) => {
+        try {
+            setLoading(true);
+            const response = await AcceptFriendRequest(_id);
+
+            if(response.success){
+                showTopToast(t('accepted-friend'),"success", 5000);
+                onClose();
+            }
+        } catch (error) {
+            handleApiError(error, "Error in accepting friend");
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    const onReject = async(_id: string) => {
+        try {
+            setLoading(true);
+            const response = await AcceptFriendRequest(_id);
+
+            if(response.success){
+                showTopToast(t('accepted-friend'),"success", 5000);
+                onClose();
+            }
+        } catch (error) {
+            handleApiError(error, "Error in accepting friend");
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+
     if (!isOpen) return null;
 
     return (
@@ -42,7 +81,15 @@ const FriendRequestModal: React.FC<IFriendRequestModalProps> = ({
                                         </div>
                                     </div>
                                     <div className="fr-request__actions">
-                                        <button
+                                        {loading ? 
+                                        <Loading
+                                        size={20}
+                                        color={'#5c70f3'}
+                                        loading={loading}
+                                        />
+                                    :
+                                    <>
+                                    <button
                                             className="fr-btn fr-btn--accept"
                                             onClick={() => onAccept(_id)}
                                         >
@@ -54,6 +101,7 @@ const FriendRequestModal: React.FC<IFriendRequestModalProps> = ({
                                         >
                                             {t('reject-button')}
                                         </button>
+                                    </>}
                                     </div>
                                 </li>
                             ))}

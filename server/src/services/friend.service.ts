@@ -118,7 +118,7 @@ class FriendService {
             .sort({ requestAt: -1 }).lean();
 
         const requests: IFriendRequest[] = requestDoc?.map((req: any) => ({
-            _id: req.sender._id.toString(),
+            _id: req._id.toString(),
             username: req.sender.username,
             profileImg: req.sender.profileImg,
             requestedAt: req.requestedAt
@@ -131,11 +131,52 @@ class FriendService {
 
     }
 
-    static async AcceptFriendRequest(requestId: string) {
-        const request = await FriendRequest.findOne({_id: convertToObjectId(requestId)});
-        if(!request) throw new BadRequestError("Friend request not found");
+    static async AcceptFriendRequest(requestId: string): Promise<void> {
+        const request = await FriendRequest.findOne({ _id: convertToObjectId(requestId) });
+        if (!request) throw new BadRequestError("Friend request not found");
+
+        await Friend.updateOne(
+            { _id: request.receiver },
+            { $addToSet: { friends: request.sender } },
+            { upsert: true }
+        );
+
+        await Friend.updateOne(
+            { _id: request.sender },
+            { $addToSet: { friends: request.receiver } },
+            { upsert: true }
+        );
+
+        const receiver = await User.findOne({_id: request.receiver}).lean();
+        const requester = await User.findOne({_id: request.sender}).lean();
 
 
+        // Delete after accepted
+        await FriendRequest.findOneAndDelete({
+            sender: request.sender,
+            receiver: request.receiver,
+            status: "pending"
+        });
+
+        // Save notification
+        const newNotification = new Notification({
+            receiverId: request._id,
+            type: "friend_accept",
+            content: `${requester?.username}`,
+            link: "/friends"
+        });
+
+        const io = getIO();
+        io.to(request.sender.toString()).emit("friend-request-accepted", {
+            userId: receiver?._id,
+            username: receiver?.username,
+            profileImg: receiver?.profileImg,
+            requestedAt: ""
+        });
+
+        io.to(request.sender.toString()).emit("notification:new", newNotification);
+
+        return;
     }
 }
 
